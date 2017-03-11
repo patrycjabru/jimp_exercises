@@ -15,29 +15,29 @@ string PolybiusCrypt(string message)
              {'v', 'w', 'x', 'y', 'z'}};
     string encryptedMessage="";
     unsigned long int lenght=message.length()-1;
-    for (int i=0;i<lenght;i++)
+    if (message.length()>0)
     {
-        int row=-1;
-        int column=-1;
-        for(int rows=0;rows<5 and row<0 and column<0;rows++)
-        {
-            for(int columns=0;columns<5;columns++)
-            {
-                if (message[i]==array[rows][columns])
-                {
-                    row=rows;
-                    column=columns;
-                    break;
+        for (int i=0;i<lenght;i++) {
+            int row = -1;
+            int column = -1;
+            for (int rows = 0; rows < 5 and row < 0 and column < 0; rows++) {
+                for (int columns = 0; columns < 5; columns++) {
+                    if (message[i] == array[rows][columns]) {
+                        row = rows+1;
+                        column = columns+1;
+                        break;
+                    }
                 }
             }
+
+            ostringstream ss;
+            ss << row;
+            string str = ss.str();
+            encryptedMessage += str;
+            ss << column;
+            str = ss.str();
+            encryptedMessage += str;
         }
-        ostringstream ss;
-        ss << row;
-        string str = ss.str();
-        encryptedMessage+=str;
-        ss << column;
-        str = ss.str();
-        encryptedMessage+=str;
         cout << "Wiadomosc: " << message << endl;
         cout << "Wiadomosc zaszyfrowana" << encryptedMessage << endl;
         return encryptedMessage;
