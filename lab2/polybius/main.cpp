@@ -23,6 +23,8 @@ int main(int argc, char* argv[]){
         while(inputFile >> word){
             if (argv[3]==0)
                 newWord=PolybiusCrypt(word);
+            else
+                newWord=PolybiusDecrypt("4313244331154411243315");
             outputFile << newWord+" ";
         }
         inputFile.close();
