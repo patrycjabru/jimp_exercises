@@ -6,6 +6,6 @@
 
 int main()
 {
-    std::vector<int> v = {0, 1, -10, 3, -5};
+    std::vector<int> v = {0, 1, -1, 3, -5, 12,3,-4};
     return GreatestProduct(v,2);
 }
