@@ -6,7 +6,15 @@
 //Jakis blad wywala jak probuje testy uruchomic i nie wiem o co chodzi T.T
 //Zrobilam tak, zeby przechodzil tablice kilka razy od poczatku, bo nie wiem jak zrobic od konca.
 //Ale nie sprawdzilam czy dziala, bo nie moge testu odpalic.
+
 #include <TinyUrl.h>
+
+std::unique_ptr<TinyUrlCodec> Init()
+{
+    unique_ptr<TinyUrlCodec> p=make_unique<TinyUrlCodec>();
+    return p;
+}
+
 namespace tinyurl {
     void NextHash(std::array<char, 6> *state)
     {
@@ -34,7 +42,8 @@ namespace tinyurl {
         }
     }
 };
-//std::unique_ptr<TinyUrlCodec> Init();
+
+
 
 //void NextHash(std::array<char, 6> *state)
 //{
@@ -101,5 +110,5 @@ namespace tinyurl {
 //
 //    }
 //}
-//std::string Encode(const std::string &url, std::unique_ptr<TinyUrlCodec> *codec);
-//std::string Decode(const std::unique_ptr<TinyUrlCodec> &codec, const std::string &hash);
+std::string Encode(const std::string &url, std::unique_ptr<TinyUrlCodec> *codec);
+std::string Decode(const std::unique_ptr<TinyUrlCodec> &codec, const std::string &hash);
