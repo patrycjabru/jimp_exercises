@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <memory>
+#include <iostream>
 
 #ifndef JIMP_EXERCISES_TINYURL_H
 #define JIMP_EXERCISES_TINYURL_H

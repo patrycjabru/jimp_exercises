@@ -9,13 +9,13 @@
 
 #include <TinyUrl.h>
 
-std::unique_ptr<TinyUrlCodec> Init()
-{
-    unique_ptr<TinyUrlCodec> p=make_unique<TinyUrlCodec>();
-    return p;
-}
 
 namespace tinyurl {
+    std::unique_ptr<TinyUrlCodec> Init()
+    {
+        std::unique_ptr<TinyUrlCodec> p=std::make_unique<TinyUrlCodec>();
+        return p;
+    }
     void NextHash(std::array<char, 6> *state)
     {
         int ascii=0;
