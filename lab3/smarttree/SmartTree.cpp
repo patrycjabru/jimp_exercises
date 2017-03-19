@@ -4,10 +4,17 @@
 
 #include "SmartTree.h"
 namespace datastructures {
-    std::unique_ptr<SmartTree> CreateLeaf(int value);
+
+    std::unique_ptr<SmartTree> CreateLeaf(int value) {
+        std::unique_ptr<SmartTree> leaf = std::make_unique<SmartTree>();
+        leaf->value=value;
+        return leaf;
+    }
 
     std::unique_ptr<SmartTree>
-    InsertLeftChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> left_subtree);
+    InsertLeftChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> left_subtree) {
+        return 0;
+    }
 
     std::unique_ptr<SmartTree>
     InsertRightChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> right_subtree);
