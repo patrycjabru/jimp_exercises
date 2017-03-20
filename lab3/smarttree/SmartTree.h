@@ -5,12 +5,13 @@
 #include <ostream>
 #include <string>
 #include <memory>
+#include <sstream>
 #ifndef JIMP_EXERCISES_SMARTTREE_H
 #define JIMP_EXERCISES_SMARTTREE_H
 struct SmartTree
 {
-    std::unique_ptr<int> left= nullptr;
-    std::unique_ptr<int> right= nullptr;
+    std::unique_ptr<SmartTree> left= nullptr;
+    std::unique_ptr<SmartTree> right= nullptr;
     int value;
 
 };

@@ -7,8 +7,8 @@
 namespace tinyurl {
     std::unique_ptr<TinyUrlCodec> Init() {
         std::unique_ptr<TinyUrlCodec> p=std::make_unique<TinyUrlCodec>();
-//        for(int i=0;i<6;i++)
-//            p->current_hash[i]='0';
+        for(int i=0;i<6;i++)
+            p->current_hash[i]='0';
 //        std::cout << "aaaa\n" << p->current_hash[5];
         return p;
     }
@@ -31,11 +31,11 @@ namespace tinyurl {
         }
     }
     std::string Encode(const std::string &url, std::unique_ptr<TinyUrlCodec> *codec) {
-        for(int i=0;i<6;i++)
-            (*codec)->current_hash[i]='0';
-        std::cout << "aaaa\n" << (*codec)->current_hash[5];
-        //NextHash(&(*codec)->current_hash);
-        //std::cout << (*codec)->current_hash[0];
+//        for(int i=0;i<6;i++)
+//            (*codec)->current_hash[i]='0';
+//        std::cout << "aaaa\n" << (*codec)->current_hash[5];
+        NextHash(&(*codec)->current_hash);
+//        std::cout << (*codec)->current_hash[0];
         //m.emplace("d", "ddd");
         (*codec)->url_map.emplace(url,(*codec)->current_hash);
         //(*codec)->url_map->emplace=(*codec)->current_hash;
