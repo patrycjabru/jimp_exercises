@@ -48,23 +48,24 @@ namespace datastructures {
 
     std::unique_ptr<SmartTree> RestoreTree(const std::string &tree)
     {
-
-        for(int i=0;i<tree.length();i++)
-        {
-            if(tree[i]=='[')
-            {
-                std::string str="";
-                i+=1;
-                while(tree[i]!=' ')
-                    str+=tree[i];
-                std::stringstream ss;
-                int temp;
-                ss << str;
-                ss >> temp;
-                CreateLeaf(temp);
-                InsertLeftChild()
-            }
-
-        }
+//
+//        for(int i=0;i<tree.length();i++)
+//        {
+//            if(tree[i]=='[')
+//            {
+//                std::string str="";
+//                i+=1;
+//                while(tree[i]!=' ')
+//                    str+=tree[i];
+//                std::stringstream ss;
+//                int temp;
+//                ss << str;
+//                ss >> temp;
+//                CreateLeaf(temp);
+//                InsertLeftChild()
+//            }
+//
+//        }
+        return 0;
     }
 }
