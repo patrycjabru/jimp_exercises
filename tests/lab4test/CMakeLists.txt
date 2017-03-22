@@ -13,6 +13,11 @@ add_gtest_with_memleak(simple_url libsimpleurl)
 add_gtest_with_memleak(simple_template_engine libsimpletemplateengine)
 add_gtest_with_memleak(simple_template_engine_injection libsimpletemplateengine)
 
+add_gtest_with_memleak(simple_json libsimplejson)
+add_gtest_with_memleak(square libsquare)
+add_gtest_with_memleak(name libname)
+
+
 #######################################################################
 ##  ALL TESTS
 #######################################################################
