@@ -20,12 +20,15 @@ namespace nets {
         JsonValue(bool value) {
             this->bValue=value;
         }
-        JsonValue(nets::JsonValue &value) {
-            this->&oValue=value;
+        JsonValue(nets::JsonValue::JsonValueObj obj) {
+            this->newObj=obj;
         }
-        std::string ToString() {
-
-        }
+//        JsonValue(nets::JsonValue &value) {
+//            this->&oValue=value;
+//        }
+//        std::string ToString() {
+//
+//        }
 //        ValueByName
 //        JsonValue(std::string name,double value) {
 //            this->dValue=value;
@@ -49,7 +52,14 @@ namespace nets {
         int iValue;
         std::string sValue;
         bool bValue;
-        JsonValue *oValue;
+        class JsonValueObj {
+            double dValueObj;
+            int iValueObj;
+            std::string sValueObj;
+            bool bValueObj;
+        };
+        JsonValueObj newObj;
+//        JsonValue *oValue;
     };
     class View {
         std::experimental::optional <JsonValue> ValueByName(const std::string &name) const;
