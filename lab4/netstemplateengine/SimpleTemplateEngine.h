@@ -19,6 +19,7 @@ namespace nets {
             this->map=input.second;
         }
         std::string Render(const std::unordered_map<std::string, std::string> &model) const {
+            std::string outputStr=this->text;
             //std::regex pattern {"{{.*}}"};
             //for( const auto& n : u ) {
             //    std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
@@ -30,17 +31,17 @@ namespace nets {
             char prev;
             bool check=0;
             std::string expression="";
-            for (int i=1;i<text.length();i++) {
-                prev=this->text[i-1];
-                if (this->text[i]=='{' and prev=='{')
+            for (unsigned int i=1;i<outputStr.length();i++) {
+                prev=outputStr[i-1];
+                if (outputStr[i]=='{' and prev=='{')
                     posBeg=i+1;
-                if (this->text[i]=='}' and prev=='}') {
+                if (outputStr[i]=='}' and prev=='}') {
                     posEnd = i - 2;
                     check = 1;
                 }
                 if (check==1) {
-                    for (int j = posBeg; j < posEnd; j++) {
-                        expression += this->text[j];
+                    for (unsigned long int j = posBeg; j < posEnd; j++) {
+                        expression += outputStr[j];
                         check=0;
                     }
                     for (auto &n : model) {
@@ -49,12 +50,13 @@ namespace nets {
                             expression=n.second;
 //                            this->text.erase(posBeg,posEnd-posBeg+1);
 //                            this->text.insert(posBeg,expression);
-                            this->text.replace(posBeg,posEnd,expression);
+                            outputStr.replace(posBeg,posEnd,expression);
                             break;
                         }
                     }
                 }
             }
+            return outputStr;
         }
     };
 }
