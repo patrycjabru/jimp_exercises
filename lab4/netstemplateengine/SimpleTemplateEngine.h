@@ -12,11 +12,14 @@ namespace nets {
     class View {
     private:
         std::string text;
-        std::unordered_map<std::string,std::string> map;
+//        std::unordered_map<std::string,std::string> map;
     public:
-        View(std::pair<std::string, std::unordered_map<std::string, std::string>> input) {
-            this->text=input.first;
-            this->map=input.second;
+//        View(std::pair<std::string, std::unordered_map<std::string, std::string>> input) {
+//            this->text=input.first;
+//            this->map=input.second;
+//        }
+        View(std::string text) {
+            this->text=text;
         }
         std::string Render(const std::unordered_map<std::string, std::string> &model) const {
             std::string outputStr=this->text;
@@ -26,6 +29,8 @@ namespace nets {
 //            for (auto &n : model) {
 //                std::regex e = n.first;
 //                std::regex_replace();
+//            return this->text;
+            std::cout << "aaa" << outputStr;
             unsigned long int posBeg=0;
             unsigned long int posEnd=0;
             char prev;
@@ -34,13 +39,13 @@ namespace nets {
             for (unsigned int i=1;i<outputStr.length();i++) {
                 prev=outputStr[i-1];
                 if (outputStr[i]=='{' and prev=='{')
-                    posBeg=i+1;
+                    posBeg=i-1;
                 if (outputStr[i]=='}' and prev=='}') {
-                    posEnd = i - 2;
+                    posEnd = i;
                     check = 1;
                 }
                 if (check==1) {
-                    for (unsigned long int j = posBeg; j < posEnd; j++) {
+                    for (unsigned long int j = posBeg+2; j <= posEnd-2; j++) {
                         expression += outputStr[j];
                         check=0;
                     }
