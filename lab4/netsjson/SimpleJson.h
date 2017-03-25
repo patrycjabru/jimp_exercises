@@ -5,28 +5,43 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <sstream>
+#include <iostream>
 #ifndef JIMP_EXERCISES_SIMPLEJSON_H
 #define JIMP_EXERCISES_SIMPLEJSON_H
 namespace nets {
     class JsonValue {
     public:
+        double dValue;
+        int iValue;
+        std::string sValue;
+        bool bValue;
+        std::vector<JsonValue> vValue;
+        std::map<std::string,JsonValue> mValue;
+        int whichValue=0;
         JsonValue(double value) {
             this->dValue=value;
+            this->whichValue=1;
         }
         JsonValue(int value) {
             this->iValue=value;
+            this->whichValue=2;
         }
         JsonValue(std::string value) {
             this->sValue=value;
+            this->whichValue=3;
         }
         JsonValue(bool value) {
             this->bValue=value;
+            this->whichValue=4;
         }
         JsonValue(std::vector<JsonValue> vec) {
             this->vValue = vec;
+            this->whichValue=5;
         }
         JsonValue(std::map<std::string,JsonValue> map) {
             this->mValue=map;
+            this->whichValue=6;
         }
 
         std::experimental::optional <JsonValue> ValueByName(const std::string &name) const {
@@ -38,16 +53,51 @@ namespace nets {
         }
 
         std::string ToString() const {
-            return "";
+            std::string outputStr="";
+//            std::cout << "vv: " << this->whichValue;
+//            if (this->whichValue==0) {
+//                outputStr="";
+//                std::cout << "tutaj!";
+//            }
+            std::cout << "tuuu";
+            if (this->whichValue==1) {
+                outputStr=std::to_string(this->dValue);
+//                outputStr[outputStr.length()-1]=null;
+            }
+            if (this->whichValue==2) {
+                std::cout << " w inttt";
+//                std::stringstream ss;
+//                ss << this->iValue;
+//                outputStr = ss.str();
+//                std::cout << "aaaaaaaaaaaaaaaaaaaaaa" << outputStr;
+                outputStr=std::to_string(this->iValue);
+            }
+            if (this->whichValue==3) {
+                outputStr = "\""+this->sValue+"\"";
+            }
+            if (this->whichValue==4) {
+//                std::cout << "w boool";
+                if (this->bValue==0)
+                    outputStr="false";
+                else
+                    outputStr="true";
+            }
+            if (this->whichValue==5) {
+                outputStr="[";
+                for(int i=0; i < this->vValue.size(); i++){
+//                    outputStr+=std::to_string(this->vValue[i]);
+                }
+//                for (auto v : this->vValue) {
+//                    outputStr+=std::to_string(v);
+//                }
+            }
+            if (this->whichValue==6) {
+                outputStr="";
+            }
+            return outputStr;
         }
-    private:
 //        std::string name;
-        double dValue;
-        int iValue;
-        std::string sValue;
-        bool bValue;
-        std::vector<JsonValue> vValue;
-        std::map<std::string,JsonValue> mValue;
+
 //            JsonValueObj(double value) {
 //                this->dValueObj=value;
 //            }

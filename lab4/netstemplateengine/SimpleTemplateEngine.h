@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <regex>
+
 namespace nets {
     class View {
     private:
@@ -23,13 +24,23 @@ namespace nets {
         }
         std::string Render(const std::unordered_map<std::string, std::string> &model) const {
             std::string outputStr=this->text;
-            //std::regex pattern {"{{.*}}"};
-            //for( const auto& n : u ) {
-            //    std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
+//            std::regex pattern ("{{.*}}");
+//            for( const auto& n : u ) {
+//                std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
 //            for (auto &n : model) {
-//                std::regex e = n.first;
-//                std::regex_replace();
+//                std::string pattern1={"{{"+n.first+"}}"};
+//                std::string replacement= {n.second};
+//                std::regex_replace (outputStr,pattern1,replacement);
+//            }
+//                std::regex e = {n.first};
+//                outputStr=std::regex_replace(outputStr,n.second);
 //            return this->text;
+//                string input = "This is   text with   far  too   much   " +
+//                               "whitespace.";
+//                string pattern = "\\s+";
+//                string replacement = " ";
+//                Regex rgx = new Regex(pattern);
+//                string result = rgx.Replace(input, replacement);
             std::cout << "aaa" << outputStr;
             unsigned long int posBeg=0;
             unsigned long int posEnd=0;
