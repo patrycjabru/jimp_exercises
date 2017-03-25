@@ -3,8 +3,8 @@
 //
 #include <SimpleTemplateEngine.h>
 int main() {
-    nets::View view1("Hello {{name}}! How are you today? My name is {{program}}!");
-    std::string aaa=view1.Render({{"name", "Zbigniew"}, {"program", "Borg"}});
+    nets::View view1("test {{test}} of {test} but {{test} or {test}} and {{{test}}}");
+    std::string aaa=view1.Render({{"test", "888"}});
     std::cout << "output:\n" << aaa;
     return 0;
 }

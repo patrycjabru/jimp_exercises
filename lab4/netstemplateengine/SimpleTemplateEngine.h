@@ -36,6 +36,7 @@ namespace nets {
             char prev;
             char next;
             bool check=0;
+            bool bracketSpotted=0;
             std::string expression="";
             std::string outputExpression="";
             for (unsigned int i=1;i<outputStr.length();i++) {
@@ -46,9 +47,12 @@ namespace nets {
                     next='a';
                 if (outputStr[i]=='{' and prev=='{' and next!='{')
                     posBeg=i-1;
+//                if (posBeg>posEnd and outputStr[i]=='}')
+//                    bracketSpotted=1;
                 if (outputStr[i]=='}' and prev=='}' and next!='}') {
                     posEnd = i;
-                    check = 1;
+                    if (bracketSpotted==0)
+                        check = 1;
                 }
                 if (check==1) {
                     expression="";
@@ -67,6 +71,7 @@ namespace nets {
                     }
                     outputStr.erase(posBeg,posEnd-posBeg+1);
                     outputStr.insert(posBeg,expression);
+                    bracketSpotted=0;
                     i=posBeg;
                 }
             }
