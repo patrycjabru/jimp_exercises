@@ -34,17 +34,25 @@ namespace nets {
             unsigned long int posBeg=0;
             unsigned long int posEnd=0;
             char prev;
+            char next;
             bool check=0;
             std::string expression="";
+            std::string outputExpression="";
             for (unsigned int i=1;i<outputStr.length();i++) {
                 prev=outputStr[i-1];
-                if (outputStr[i]=='{' and prev=='{')
+                if (i+1<outputStr.length())
+                    next=outputStr[i+1];
+                else
+                    next='a';
+                if (outputStr[i]=='{' and prev=='{' and next!='{')
                     posBeg=i-1;
-                if (outputStr[i]=='}' and prev=='}') {
+                if (outputStr[i]=='}' and prev=='}' and next!='}') {
                     posEnd = i;
                     check = 1;
                 }
                 if (check==1) {
+                    expression="";
+                    outputExpression="";
                     for (unsigned long int j = posBeg+2; j <= posEnd-2; j++) {
                         expression += outputStr[j];
                         check=0;
@@ -53,12 +61,13 @@ namespace nets {
                         if (n.first == expression) {
                             //str.erase(0, str.length());
                             expression=n.second;
-//                            this->text.erase(posBeg,posEnd-posBeg+1);
-//                            this->text.insert(posBeg,expression);
-                            outputStr.replace(posBeg,posEnd,expression);
+//                            outputStr.replace(posBeg,posEnd,expression);
                             break;
                         }
                     }
+                    outputStr.erase(posBeg,posEnd-posBeg+1);
+                    outputStr.insert(posBeg,expression);
+                    i=posBeg;
                 }
             }
             return outputStr;
