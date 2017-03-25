@@ -1,19 +1,58 @@
 //
 // Created by patrycja on 22.03.17.
 //
-
 #include <experimental/optional>
 #include <string>
 #include <vector>
 #include <map>
-#include <iostream>
-#include <sstream>
-
 #ifndef JIMP_EXERCISES_SIMPLEJSON_H
-            #define JIMP_EXERCISES_SIMPLEJSON_H
-
+#define JIMP_EXERCISES_SIMPLEJSON_H
 namespace nets {
     class JsonValue {
+    private:
+//        std::string name;
+        double dValue;
+        int iValue;
+        std::string sValue;
+        bool bValue;
+        class JsonValueObj {
+        public:
+            double dValueObj;
+            int iValueObj;
+            std::string sValueObj;
+            bool bValueObj;
+            std::map<std::string,JsonValue> newMap;
+//            JsonValueObj(double value) {
+//                this->dValueObj=value;
+//            }
+//            JsonValueObj(int value) {
+//                this->iValueObj=value;
+//            }
+//            JsonValueObj(std::string value) {
+//                this->sValueObj=value;
+//            }
+//            JsonValueObj(bool value) {
+//                this->bValueObj=value;
+//            }
+//            JsonValueObj(std::map<std::string,JsonValue> value) {
+//                this->newMap=value;
+//            }
+            class JsonValueObj2 {
+            public:
+                double dValueObj2;
+                int iValueObj2;
+                std::string sValueObj2;
+                bool bValueObj2;
+                std::map<std::string,JsonValue> newMap2;
+            };
+            JsonValueObj2 newObj2;
+            JsonValueObj(nets::JsonValue::JsonValueObj::JsonValueObj2 obj2) {
+                this->newObj2=obj2;
+            }
+        };
+        JsonValueObj newObj;
+//        JsonValue *oValue;
+        std::vector<JsonValue> newVector;
     public:
         JsonValue(double value) {
             this->dValue=value;
@@ -27,18 +66,12 @@ namespace nets {
         JsonValue(bool value) {
             this->bValue=value;
         }
-//        JsonValue(nets::JsonValue &obj) {
-//            this->mValue=&obj;
-//        }
-//        JsonValue.insert(std::make_pair("Scene_Branding", Scene_Branding()));
+        JsonValue(nets::JsonValue::JsonValueObj obj) {
+            this->newObj=obj;
+        }
         JsonValue(std::vector<JsonValue> vec) {
-            this->vValue=vec;
+            this->newVector = vec;
         }
-        JsonValue(std::map<std::string, JsonValue> map) {
-            this->mValue=map;
-        }
-
-
 //        JsonValue(nets::JsonValue &value) {
 //            this->&oValue=value;
 //        }
@@ -62,36 +95,18 @@ namespace nets {
 //            this->bValue=value;
 //            this->name=name;
 //        }
+
+    };
+    class View {
         std::experimental::optional <JsonValue> ValueByName(const std::string &name) const {
-            std::experimental::optional <JsonValue> exp;
-            std::map<std::string, JsonValue>::const_iterator it;
-            it=this->mValue.find(name);
-            exp=it->second;
-            return exp;
+            std::experimental::optional <JsonValue> aaa;
+//            JsonValue aaa(1);
+            return aaa;
         }
 
         std::string ToString() const {
             return "";
         }
-    private:
-//        std::string name;
-        double dValue=0;
-        int iValue=0;
-        std::string sValue="";
-        bool bValue=-1;
-        std::vector<JsonValue> vValue;
-        std::map<std::string, JsonValue> mValue;
     };
-//    class View {
-//        std::experimental::optional <JsonValue> ValueByName(const std::string &name) const {
-//            std::experimental::optional <JsonValue> exp;
-//            return exp;
-//        }
-//
-//        std::string ToString() const {
-//            std::string str;
-//            return str;
-//        }
-//    };
 }
 #endif //JIMP_EXERCISES_SIMPLEJSON_H
