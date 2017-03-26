@@ -75,13 +75,13 @@ namespace nets {
                     for (auto &n : model) {
                         if (n.first == expression) {
                             //str.erase(0, str.length());
-                            expression=n.second;
+                            outputExpression=n.second;
 //                            outputStr.replace(posBeg,posEnd,expression);
                             break;
                         }
                     }
                     outputStr.erase(posBeg,posEnd-posBeg+1);
-                    outputStr.insert(posBeg,expression);
+                    outputStr.insert(posBeg,outputExpression);
 //                    bracketSpotted=0;
                     i=posBeg;
                 }
