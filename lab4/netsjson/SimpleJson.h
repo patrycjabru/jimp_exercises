@@ -43,40 +43,32 @@ namespace nets {
             this->mValue=map;
             this->whichValue=6;
         }
-
         std::experimental::optional <JsonValue> ValueByName(const std::string &name) const {
             std::experimental::optional <JsonValue> exp;
             std::map<std::string,JsonValue>::const_iterator it;
-            it=this->mValue.find(name);
-            exp=it->second;
+            auto search = this->mValue.find(name);
+            if(search != this->mValue.end()) {
+                it = this->mValue.find(name);
+                exp = it->second;
+            }
             return exp;
         }
-
         std::string ToString() const {
             std::string outputStr="";
-//            std::cout << "vv: " << this->whichValue;
-//            if (this->whichValue==0) {
-//                outputStr="";
-//                std::cout << "tutaj!";
-//            }
-            std::cout << "tuuu";
             if (this->whichValue==1) {
-                outputStr=std::to_string(this->dValue);
-//                outputStr[outputStr.length()-1]=null;
+                std::string temp=std::to_string(this->dValue);
+                for (int i=0;i<temp.length()-4;i++) {
+                    outputStr+=temp[i];
+                }
+
             }
             if (this->whichValue==2) {
-                std::cout << " w inttt";
-//                std::stringstream ss;
-//                ss << this->iValue;
-//                outputStr = ss.str();
-//                std::cout << "aaaaaaaaaaaaaaaaaaaaaa" << outputStr;
                 outputStr=std::to_string(this->iValue);
             }
             if (this->whichValue==3) {
                 outputStr = "\""+this->sValue+"\"";
             }
             if (this->whichValue==4) {
-//                std::cout << "w boool";
                 if (this->bValue==0)
                     outputStr="false";
                 else
@@ -85,11 +77,11 @@ namespace nets {
             if (this->whichValue==5) {
                 outputStr="[";
                 for(int i=0; i < this->vValue.size(); i++){
-//                    outputStr+=std::to_string(this->vValue[i]);
+                    outputStr+=((this->vValue[i]).ToString());
+                    if (i<this->vValue.size()-1)
+                        outputStr+=", ";
                 }
-//                for (auto v : this->vValue) {
-//                    outputStr+=std::to_string(v);
-//                }
+                outputStr+="]";
             }
             if (this->whichValue==6) {
                 outputStr="";
