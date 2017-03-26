@@ -13,34 +13,12 @@ namespace nets {
     class View {
     private:
         std::string text;
-//        std::unordered_map<std::string,std::string> map;
     public:
-//        View(std::pair<std::string, std::unordered_map<std::string, std::string>> input) {
-//            this->text=input.first;
-//            this->map=input.second;
-//        }
         View(std::string text) {
             this->text=text;
         }
         std::string Render(const std::unordered_map<std::string, std::string> &model) const {
             std::string outputStr=this->text;
-//            std::regex pattern ("{{.*}}");
-//            for( const auto& n : u ) {
-//                std::cout << "Key:[" << n.first << "] Value:[" << n.second << "]\n";
-//            for (auto &n : model) {
-//                std::string pattern1={"{{"+n.first+"}}"};
-//                std::string replacement= {n.second};
-//                std::regex_replace (outputStr,pattern1,replacement);
-//            }
-//                std::regex e = {n.first};
-//                outputStr=std::regex_replace(outputStr,n.second);
-//            return this->text;
-//                string input = "This is   text with   far  too   much   " +
-//                               "whitespace.";
-//                string pattern = "\\s+";
-//                string replacement = " ";
-//                Regex rgx = new Regex(pattern);
-//                string result = rgx.Replace(input, replacement);
             std::cout << "aaa" << outputStr;
             unsigned long int posBeg=0;
             unsigned long int posEnd=0;
@@ -50,7 +28,7 @@ namespace nets {
 //            bool bracketSpotted=0;
             std::string expression="";
             std::string outputExpression="";
-            for (unsigned int i=1;i<outputStr.length();i++) {
+            for (unsigned long int i=1;i<outputStr.length();i++) {
                 prev=outputStr[i-1];
                 if (i+1<outputStr.length())
                     next=outputStr[i+1];
@@ -60,7 +38,7 @@ namespace nets {
                     posBeg=i-1;
 //                if (posBeg>posEnd and outputStr[i]=='}')
 //                    bracketSpotted=1;
-                if (outputStr[i]=='}' and prev=='}' and next!='}') {
+                if (outputStr[i]=='}' and prev=='}') {
                     posEnd = i;
 //                    if (bracketSpotted==0)
                         check = 1;
@@ -74,12 +52,12 @@ namespace nets {
                     }
                     for (auto &n : model) {
                         if (n.first == expression) {
-                            //str.erase(0, str.length());
                             outputExpression=n.second;
 //                            outputStr.replace(posBeg,posEnd,expression);
                             break;
                         }
                     }
+
                     outputStr.erase(posBeg,posEnd-posBeg+1);
                     outputStr.insert(posBeg,outputExpression);
 //                    bracketSpotted=0;
@@ -89,5 +67,6 @@ namespace nets {
             return outputStr;
         }
     };
+
 }
 #endif //JIMP_EXERCISES_SIMPLETEMPLATEENGINE_H

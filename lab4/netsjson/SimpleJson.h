@@ -20,73 +20,78 @@ namespace nets {
         std::map<std::string,JsonValue> mValue;
         int whichValue=0;
         JsonValue(double value) {
-            this->dValue=value;
-            this->whichValue=1;
+            dValue=value;
+            whichValue=1;
         }
         JsonValue(int value) {
-            this->iValue=value;
-            this->whichValue=2;
+            iValue=value;
+            whichValue=2;
         }
         JsonValue(std::string value) {
-            this->sValue=value;
-            this->whichValue=3;
+            sValue=value;
+            whichValue=3;
         }
         JsonValue(bool value) {
-            this->bValue=value;
-            this->whichValue=4;
+            bValue=value;
+            whichValue=4;
         }
         JsonValue(std::vector<JsonValue> vec) {
-            this->vValue = vec;
-            this->whichValue=5;
+            vValue = vec;
+            whichValue=5;
         }
         JsonValue(std::map<std::string,JsonValue> map) {
-            this->mValue=map;
-            this->whichValue=6;
+            mValue=map;
+            whichValue=6;
         }
         std::experimental::optional <JsonValue> ValueByName(const std::string &name) const {
             std::experimental::optional <JsonValue> exp;
             std::map<std::string,JsonValue>::const_iterator it;
-            auto search = this->mValue.find(name);
-            if(search != this->mValue.end()) {
-                it = this->mValue.find(name);
+            auto search = mValue.find(name);
+            if(search != mValue.end()) {
+                it = mValue.find(name);
                 exp = it->second;
             }
             return exp;
         }
         std::string ToString() const {
-            std::string outputStr="";
-            if (this->whichValue==1) {
-                std::string temp=std::to_string(this->dValue);
-                for (int i=0;i<temp.length()-4;i++) {
-                    outputStr+=temp[i];
-                }
-
-            }
-            if (this->whichValue==2) {
-                outputStr=std::to_string(this->iValue);
-            }
-            if (this->whichValue==3) {
-                outputStr = "\""+this->sValue+"\"";
-            }
-            if (this->whichValue==4) {
-                if (this->bValue==0)
-                    outputStr="false";
-                else
-                    outputStr="true";
-            }
-            if (this->whichValue==5) {
-                outputStr="[";
-                for(int i=0; i < this->vValue.size(); i++){
-                    outputStr+=((this->vValue[i]).ToString());
-                    if (i<this->vValue.size()-1)
-                        outputStr+=", ";
-                }
-                outputStr+="]";
-            }
-            if (this->whichValue==6) {
-                outputStr="";
-            }
-            return outputStr;
+//            std::string outputStr="";
+//            if (whichValue==1) {
+//                std::string temp=std::to_string(dValue);
+//                for (int i=0;i<temp.length()-4;i++) {
+//                    outputStr+=temp[i];
+//                }
+//                return outputStr;
+//            }
+//            if (whichValue==2) {
+//                outputStr=std::to_string(iValue);
+//                return outputStr;
+//            }
+//            if (whichValue==3) {
+//                outputStr = "\""+sValue+"\"";
+//                return outputStr;
+//            }
+//            if (whichValue==4) {
+//                if (bValue==0)
+//                    outputStr="false";
+//                else
+//                    outputStr="true";
+//                return outputStr;
+//            }
+//            if (whichValue==5) {
+//                outputStr="[";
+//                for(int i=0; i < vValue.size(); i++){
+//                    outputStr+=((vValue[i]).ToString());
+//                    if (i<vValue.size()-1)
+//                        outputStr+=", ";
+//                }
+//                outputStr+="]";
+//                return outputStr;
+//            }
+//            if (whichValue==6) {
+//                outputStr="";
+//                return outputStr;
+//            }
+            return "";
         }
 //        std::string name;
 
