@@ -52,7 +52,7 @@ std::string View::Render(const std::unordered_map<std::string, std::string> &mod
 
                 outputStr.erase(posBeg, posEnd - posBeg + 1);
                 outputStr.insert(posBeg, outputExpression);
-                i = posBeg;
+                i = posBeg+outputExpression.length();
             }
             bracketSpotted=0;
         }
