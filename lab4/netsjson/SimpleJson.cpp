@@ -37,7 +37,7 @@ JsonValue::JsonValue(std::map<std::string, JsonValue> map) {
 
 
 std::experimental::optional<JsonValue> JsonValue::ValueByName(const std::string &name) const {
-    std::experimental::optional<JsonValue> exp;
+    std::experimental::optional<JsonValue> exp = {};
     std::map<std::string, JsonValue>::const_iterator it;
     auto search = mValue.find(name);
     if (search != mValue.end()) {

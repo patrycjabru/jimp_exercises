@@ -44,5 +44,10 @@ int main() {
     test=view8.Render({{"t17", "Am I?"}});
     std::cout << "\ninput: " << "\"{{t09}}<=>{{t17}}\"";
     std::cout << "\noutput: " << test << "\n";
+
+//    nets::View view9("Test {{test}} {{injected}}");
+//    test=view9.Render({{"test", "{{injected}}"}, {"injected", "{{test}}"}});
+//    std::cout << "\ninput: " << "Test {{test}} {{injected}}";
+//    std::cout << "\noutput: " << test << "\n";
     return 0;
 }
