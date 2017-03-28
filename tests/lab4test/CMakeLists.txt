@@ -6,14 +6,15 @@ set(TEST_LAB_NUMBER 4)
 #######################################################################
 ##  TESTS
 #######################################################################
-#add_gtest_with_memleak_stepped(tiny_url 1 2)
-
 add_gtest_with_memleak(simple_url libsimpleurl)
 
 add_gtest_with_memleak(simple_template_engine libsimpletemplateengine)
 add_gtest_with_memleak(simple_template_engine_injection libsimpletemplateengine)
 
 add_gtest_with_memleak(simple_json libsimplejson)
+add_gtest_with_memleak(square libsquare)
+add_gtest_with_memleak(name libname)
+
 
 #######################################################################
 ##  ALL TESTS
@@ -22,5 +23,9 @@ add_executable(lab4_all_tests ${SOURCE_FILES})
 
 target_link_libraries(lab4_all_tests ${GTEST_LIBS})
 target_link_libraries(lab4_all_tests libsimpleurl)
+target_link_libraries(lab4_all_tests libsimpletemplateengine)
+target_link_libraries(lab4_all_tests libsimplejson)
+target_link_libraries(lab4_all_tests libsqure)
+target_link_libraries(lab4_all_tests libname)
 target_link_libraries(lab4_all_tests memleak)
 target_link_libraries(lab4_all_tests stringutility)
