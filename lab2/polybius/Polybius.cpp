@@ -2,6 +2,24 @@
 // Created by patrycja on 07.03.17.
 //
 
+std::string str;
+if(this->dValue!=0) {
+std::ostringstream ss;
+ss << this->dValue;
+std::string str1 = ss.str();
+return str1;
+}
+if(this->iValue!=0) {
+str = this->iValue;
+return str;
+}
+if(this->sValue!="") {
+return this->sValue;
+}
+if(this->bValue!=-1) {
+str = this->bValue;
+return str;
+}
 #include "Polybius.h"
 #include <sstream>
 using namespace std;
