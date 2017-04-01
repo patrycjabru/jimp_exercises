@@ -22,25 +22,26 @@ Matrix::Matrix(string input) {
         if (numberSpotted)
             cols+=1;
     }
+    this->rows=rows;
+    this->cols=cols;
     complex<double>** arr = new complex<double>*[rows];
     for(int i = 0; i < rows; i++)
         arr[i] = new complex<double>[cols];
     array=arr;
-    int breakPoint=0;
     cout << "rows "<<rows << "cols "<<cols<<"\n";
     int begin=0;
     int end=0;
     bool beginSet=false;
     bool endSet=false;
     int r=0,c=0;
-    for(int i=0;i<input.length();i++) {
+    for(int i=1;i<input.length();i++) {
         if (input[i]!=' ' and input[i]!=';' and input[i]!='[' and input[i]!=']') {
             if (input[i-1]==' ' or input[i-1]==';' or input[i-1]=='[') {
                 begin = i;
                 beginSet = true;
             }
         }
-        else {
+        else if (beginSet==true){
             if (input[i - 1] != ' ' or input[i - 1] != ';' or input[i - 1] != '[') {
                 end = i;
                 endSet = true;
@@ -48,49 +49,46 @@ Matrix::Matrix(string input) {
         }
         if (beginSet and endSet) {
             string tmp="";
-            for (int k=begin;k<end;k++)
-                tmp+=input[i];
-            cout << tmp << "  ";
-            std::istringstream is('(' + tmp + ')');
-            is >> array[r][c];
+            for (int k=begin;k<end;k++) {
+                tmp += input[k];
+            }
+            bool separatorSpotted=false;
+            double real=0;
+            string sReal="";
+            double imaginary=0;
+            string sImaginary="";
+            for (int z=0;z<tmp.length();z++) {
+                if (tmp[z]=='i')
+                    separatorSpotted=true;
+                if (separatorSpotted==false)
+                    sReal+=tmp[z];
+                else if (tmp[z]!='i')
+                    sImaginary+=tmp[z];
+            }
+            cout<<sReal;
+            real=stod(sReal);
+            cout << sImaginary;
+            if (separatorSpotted)
+                imaginary=stod(sImaginary);
+            (array[r][c]).real(real);
+            (array[r][c]).imag(imaginary);
             r++;
             if (r==rows) {
                 r=0;
                 c++;
             }
+            beginSet=false;
+            endSet=false;
         }
     }
-//    for(int i=0; i<rows; i++) {
-//        for (int j=0; j<cols ;j++) {
-//            string tmp="";
-//            bool numberSpotted=false;
-//            int begin=0;
-//            int end=0;
-//            for (end;end<input.length();end++) {
-//                cout << input[breakPoint] << "  ";
-//                if(input[breakPoint]!=' ' and input[breakPoint]!= ';' and input[breakPoint]!='[' and input[breakPoint]!=']') {
-//                    tmp = tmp + input[breakPoint];
-//                    numberSpotted = true;
-//                }
-//                if(numberSpotted==true and (input[breakPoint]==' ' or input[breakPoint]== ';' or input[breakPoint]=='[' or input[breakPoint]!=']') and input[breakPoint-1]!=' ' and input[breakPoint-1]!= ';' and input[breakPoint-1]!='[' and input[breakPoint-1]!=']')
-//                    break;
-//                if (input[end]!=' ' and input[end]!=';' and input[end]!='[' and input[end]!=']')
-//                    tmp+=input[end];
-//                else if (end>begin) {
-//                    std::istringstream is('(' + tmp + ')');
-//                    is >> array[i][j];
-//                    begin=end;
-//                    cout << tmp << "   ";
-//
-//                }
-//            }
-//            cout << input;
-//            cout << tmp;
-//            std::istringstream is('(' + tmp + ')');
-//            is >> array[i][j];
-//            cout << array[i][j];
-            //konwersja string do complex
-//        }
-//    }
-//    cout << "\n" <<array[0][1];
+    for (int i=0;i<3;i++) {
+        for (int j=0;j<3;j++)
+            cout << "\n" <<array[j][i] << " ";
+    cout << "\n";
+    }
+
+
+}
+string Matrix::print() {
+
 }
