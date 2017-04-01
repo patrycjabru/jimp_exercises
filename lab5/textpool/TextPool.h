@@ -11,7 +11,7 @@
 #include <vector>
 namespace pool {
     class TextPool {
-    private:
+    public:
         std::vector<std::string> pool;
     public:
         TextPool();
