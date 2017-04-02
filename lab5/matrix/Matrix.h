@@ -16,8 +16,14 @@ namespace matrix{
         int cols;
     public:
         Matrix();
+        Matrix(int rows,int cols);
         Matrix(string input);
         string print();
+        Matrix add(Matrix m2);
+        Matrix sub(Matrix m2);
+        Matrix mul(Matrix m2);
+        complex<double> Matrix::determinant();
+        Matrix div(Matrix m2);
     };
 }
 #endif //JIMP_EXERCISES_MATRIX_H

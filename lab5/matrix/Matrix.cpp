@@ -6,6 +6,20 @@
 using namespace std;
 using namespace matrix;
 
+Matrix::Matrix(int rows,int cols) {
+    complex<double>** arr = new complex<double>*[rows];
+    for(int i = 0; i < rows; i++)
+        arr[i] = new complex<double>[cols];
+    array=arr;
+    for(int i=0;i<rows;i++) {
+        for (int j = 0; j < cols; j++) {
+            array[i][j].real(0);
+            array[i][j].imag(0);
+        }
+    }
+    this->rows=rows;
+    this->cols=cols;
+}
 Matrix::Matrix(string input) {
     int rows=1, cols=0;
     bool numberSpotted=false;
@@ -28,7 +42,7 @@ Matrix::Matrix(string input) {
     for(int i = 0; i < rows; i++)
         arr[i] = new complex<double>[cols];
     array=arr;
-    cout << "rows "<<rows << "cols "<<cols<<"\n";
+//    cout << "rows "<<rows << "cols "<<cols<<"\n";
     int begin=0;
     int end=0;
     bool beginSet=false;
@@ -65,9 +79,9 @@ Matrix::Matrix(string input) {
                 else if (tmp[z]!='i')
                     sImaginary+=tmp[z];
             }
-            cout<<sReal;
+//            cout<<sReal;
             real=stod(sReal);
-            cout << sImaginary;
+//            cout << sImaginary;
             if (separatorSpotted)
                 imaginary=stod(sImaginary);
             (array[r][c]).real(real);
@@ -81,14 +95,95 @@ Matrix::Matrix(string input) {
             endSet=false;
         }
     }
-    for (int i=0;i<3;i++) {
-        for (int j=0;j<3;j++)
-            cout << "\n" <<array[j][i] << " ";
-    cout << "\n";
-    }
+//    for (int i=0;i<3;i++) {
+//        for (int j=0;j<3;j++)
+//            cout << "\n" <<array[j][i] << " ";
+//    cout << "\n";
+//    }
 
 
 }
 string Matrix::print() {
+    string str="";
+    str+="\n";
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            str+=to_string(array[i][j].real());
+            if (array[i][j].imag()!=0) {
+                str+=" + "+to_string(array[i][j].imag())+"i";
+                str+="\t\t";
+            }
+            else
+                str+="\t\t\t\t\t";
+        }
+        str+="\n";
+    }
+    return str;
+}
+Matrix Matrix::add(Matrix m2) {
+    if (this->cols!=m2.cols or this->rows!=m2.rows) {
+        cout << "Nie mozna dodac macierzy - niepasujace wymiary.";
+        Matrix m(0,0);
+        return m;
+    }
+    Matrix output(rows,cols);
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            output.array[i][j]=array[i][j]+m2.array[i][j];
+        }
+    }
+    return output;
+}
+Matrix Matrix::sub(Matrix m2) {
+    if (this->cols!=m2.cols or this->rows!=m2.rows) {
+        cout << "Nie mozna odjac macierzy - niepasujace wymiary.";
+        Matrix m(0,0);
+        return m;
+    }
+    Matrix output(rows,cols);
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            output.array[i][j]=array[i][j]-m2.array[i][j];
+        }
+    }
+    return output;
+}
+Matrix Matrix::mul(Matrix m2) {
+    if (this->cols!=m2.rows) {
+        cout << "Nie mozna pomnozyc macierzy - niepasujace wymiary.";
+        Matrix m(0,0);
+        return m;
+    }
+    Matrix w(this->rows,m2.cols);
+    for (int r=0;r<this->rows;r++) {
+        for (int c = 0; c < m2.cols; c++) {
+            for (int i = 0; i < this->cols; i++) {
+                w.array[r][c] += this->array[r][i] * m2.array[i][c];
+            }
+        }
+    }
+    return w;
+}
+complex<double> Matrix::determinant() {
+    if (this->rows!=this->cols) {
+        cout << "Nie mozna policzyc wyznacznika - nieodpowiednie wymiary.";
+        return (0.0);
+    }
+    if (this->rows==1)
+        return this->array[0][0];
+    Matrix m(this->rows-1,this->cols-1);
+    int r=0,c=0;
+    for (int a=0;a<this->rows;a++) {
+        for (int b=0;b<this->cols;b++) {
+            if (a==i or b)
+        }
+    }
+}
+Matrix Matrix::div(Matrix m2) {
+    if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
+        cout << "Nie mozna podzielic macierzy - niepasujace wymiary.";
+        Matrix m(0,0);
+        return m;
+    }
 
 }
