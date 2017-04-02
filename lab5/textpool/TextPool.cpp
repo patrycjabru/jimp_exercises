@@ -37,8 +37,8 @@ TextPool::TextPool(std::initializer_list<std::string> list) {
 //TextPool::~TextPool();
 
 std::experimental::string_view TextPool::Intern(const std::string &str) {
-    std::experimental::string_view text=str;
-    bool found;
+    std::experimental::string_view text;
+    bool found=0;
     for (auto v : pool) {
         if (v==str) {
             found=1;
