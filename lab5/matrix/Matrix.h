@@ -22,7 +22,7 @@ namespace matrix{
         Matrix add(Matrix m2);
         Matrix sub(Matrix m2);
         Matrix mul(Matrix m2);
-        complex<double> Matrix::determinant();
+        complex<double> determinant(int i,int j);
         Matrix div(Matrix m2);
     };
 }

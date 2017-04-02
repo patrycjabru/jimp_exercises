@@ -164,7 +164,11 @@ Matrix Matrix::mul(Matrix m2) {
     }
     return w;
 }
-complex<double> Matrix::determinant() {
+complex<double> Matrix::determinant(int i,int j) {
+    if (i>this->rows or j>this->cols) {
+        cout << "Nieodpowiednie argumenty";
+        return (0.0);
+    }
     if (this->rows!=this->cols) {
         cout << "Nie mozna policzyc wyznacznika - nieodpowiednie wymiary.";
         return (0.0);
@@ -175,9 +179,20 @@ complex<double> Matrix::determinant() {
     int r=0,c=0;
     for (int a=0;a<this->rows;a++) {
         for (int b=0;b<this->cols;b++) {
-            if (a==i or b)
+            if (a==i or b==j)
+                continue;
+            m.array[r][c]=this->array[a][b];
+            c++;
+            if (c==m.cols) {
+                c=0;
+                r++;
+            }
         }
     }
+    complex<double> tmp;
+    tmp.real((-1)^(i+j));
+    tmp.imag(0);
+    return tmp * this->array[0][j] * m.determinant(0,0);
 }
 Matrix Matrix::div(Matrix m2) {
     if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
