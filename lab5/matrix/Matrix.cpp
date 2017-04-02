@@ -4,7 +4,13 @@
 
 #include "Matrix.h"
 using namespace std;
-using namespace matrix;
+using namespace algebra;
+
+pair<size_t, size_t > Matrix::Size() {
+    pair<size_t, size_t> size;
+    size = make_pair(rows,cols);
+    return size;
+};
 
 Matrix::Matrix(int rows,int cols) {
     complex<double>** arr = new complex<double>*[rows];
@@ -103,7 +109,7 @@ Matrix::Matrix(string input) {
 
 
 }
-string Matrix::print() {
+string Matrix::Print() {
     string str="";
     str+="\n";
     for (int i=0;i<rows;i++) {
@@ -120,7 +126,7 @@ string Matrix::print() {
     }
     return str;
 }
-Matrix Matrix::add(Matrix m2) {
+Matrix Matrix::Add(Matrix m2) {
     if (this->cols!=m2.cols or this->rows!=m2.rows) {
         cout << "Nie mozna dodac macierzy - niepasujace wymiary.";
         Matrix m(0,0);
@@ -134,7 +140,7 @@ Matrix Matrix::add(Matrix m2) {
     }
     return output;
 }
-Matrix Matrix::sub(Matrix m2) {
+Matrix Matrix::Sub(Matrix m2) {
     if (this->cols!=m2.cols or this->rows!=m2.rows) {
         cout << "Nie mozna odjac macierzy - niepasujace wymiary.";
         Matrix m(0,0);
@@ -148,7 +154,7 @@ Matrix Matrix::sub(Matrix m2) {
     }
     return output;
 }
-Matrix Matrix::mul(Matrix m2) {
+Matrix Matrix::Mul(Matrix m2) {
     if (this->cols!=m2.rows) {
         cout << "Nie mozna pomnozyc macierzy - niepasujace wymiary.";
         Matrix m(0,0);
@@ -164,7 +170,7 @@ Matrix Matrix::mul(Matrix m2) {
     }
     return w;
 }
-complex<double> Matrix::determinant(int i,int j) {
+complex<double> Matrix::Determinant(int i,int j) {
     if (i>this->rows or j>this->cols) {
         cout << "Nieodpowiednie argumenty";
         return (0.0);
@@ -192,9 +198,9 @@ complex<double> Matrix::determinant(int i,int j) {
     complex<double> tmp;
     tmp.real((-1)^(i+j));
     tmp.imag(0);
-    return tmp * this->array[0][j] * m.determinant(0,0);
+    return tmp * this->array[0][j] * m.Determinant(0,0);
 }
-Matrix Matrix::div(Matrix m2) {
+Matrix Matrix::Div(Matrix m2) {
     if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
         cout << "Nie mozna podzielic macierzy - niepasujace wymiary.";
         Matrix m(0,0);
