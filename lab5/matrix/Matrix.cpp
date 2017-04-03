@@ -4,8 +4,36 @@
 
 #include "Matrix.h"
 using namespace std;
-using namespace matrix;
+using namespace algebra;
 
+std::string dtos(double x) {
+    std::stringstream s;
+    s << x;
+    return s.str();
+}
+pair<size_t, size_t > Matrix::Size() {
+    pair<size_t, size_t> size;
+    size = make_pair(rows,cols);
+    return size;
+};
+Matrix::Matrix() {
+    array=nullptr;
+    rows=0;
+    cols=0;
+}
+Matrix::Matrix(const std::initializer_list<std::vector<std::complex<double>>> &m):data(m) {
+    rows=data.size();
+    cols=data[0].size();
+    complex<double>** arr = new complex<double>*[rows];
+    for(int i = 0; i < rows; i++)
+        arr[i] = new complex<double>[cols];
+    array=arr;
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            array[i][j]=data[i][j];
+        }
+    }
+}
 Matrix::Matrix(int rows,int cols) {
     complex<double>** arr = new complex<double>*[rows];
     for(int i = 0; i < rows; i++)
@@ -103,29 +131,66 @@ Matrix::Matrix(string input) {
 
 
 }
-string Matrix::print() {
-    string str="";
-    str+="\n";
-    for (int i=0;i<rows;i++) {
-        for (int j=0;j<cols;j++) {
-            str+=to_string(array[i][j].real());
-            if (array[i][j].imag()!=0) {
-                str+=" + "+to_string(array[i][j].imag())+"i";
-                str+="\t\t";
+Matrix::Matrix(const Matrix &m) {
+    rows=m.rows;
+    cols=m.cols;
+    if (rows and cols) {
+        complex<double>** arr = new complex<double>*[rows];
+        for(int i = 0; i < rows; i++)
+            arr[i] = new complex<double>[cols];
+        array=arr;
+        for (int i=0;i<rows;i++) {
+            for (int j=0;j<cols;j++) {
+                array[i][j]=m.array[i][j];
             }
-            else
-                str+="\t\t\t\t\t";
         }
-        str+="\n";
     }
+}
+Matrix::~Matrix() {
+    for(int i = 0; i < rows; i++)
+        delete[] array[i];
+    if (array)
+        delete[] array;
+    array= nullptr;
+    rows=0;
+    cols=0;
+}
+string Matrix::Print() const {
+    string str="";
+//    str+="\n";
+//    for (int i=0;i<rows;i++) {
+//        for (int j=0;j<cols;j++) {
+//            str+=to_string(array[i][j].real());
+//            if (array[i][j].imag()!=0) {
+//                str+=" + "+to_string(array[i][j].imag())+"i";
+//                str+="\t\t";
+//            }
+//            else
+//                str+="\t\t\t\t\t";
+//        }
+//        str+="\n";
+//    }
+    str+="[";
+    for (int i=0;i<rows;i++) {
+        for (int j = 0; j < cols; j++) {
+            str += dtos(array[i][j].real());
+            str += "i";
+            str += dtos(array[i][j].imag());
+            if (j!=cols-1)
+                str += ", ";
+        }
+        if (i!=rows-1)
+            str += "; ";
+    }
+    str+="]";
     return str;
 }
-Matrix Matrix::add(Matrix m2) {
-    if (this->cols!=m2.cols or this->rows!=m2.rows) {
-        cout << "Nie mozna dodac macierzy - niepasujace wymiary.";
-        Matrix m(0,0);
-        return m;
-    }
+Matrix Matrix::Add(Matrix m2) const {
+//    if (this->cols!=m2.cols or this->rows!=m2.rows) {
+//        cout << "Nie mozna dodac macierzy - niepasujace wymiary.";
+//        Matrix m;
+//        return m;
+//    }
     Matrix output(rows,cols);
     for (int i=0;i<rows;i++) {
         for (int j=0;j<cols;j++) {
@@ -134,7 +199,7 @@ Matrix Matrix::add(Matrix m2) {
     }
     return output;
 }
-Matrix Matrix::sub(Matrix m2) {
+Matrix Matrix::Sub(Matrix m2) {
     if (this->cols!=m2.cols or this->rows!=m2.rows) {
         cout << "Nie mozna odjac macierzy - niepasujace wymiary.";
         Matrix m(0,0);
@@ -148,10 +213,10 @@ Matrix Matrix::sub(Matrix m2) {
     }
     return output;
 }
-Matrix Matrix::mul(Matrix m2) {
+Matrix Matrix::Mul(Matrix m2) {
     if (this->cols!=m2.rows) {
         cout << "Nie mozna pomnozyc macierzy - niepasujace wymiary.";
-        Matrix m(0,0);
+        Matrix m;
         return m;
     }
     Matrix w(this->rows,m2.cols);
@@ -164,7 +229,7 @@ Matrix Matrix::mul(Matrix m2) {
     }
     return w;
 }
-complex<double> Matrix::determinant(int i,int j) {
+complex<double> Matrix::Determinant(int i,int j) {
     if (i>this->rows or j>this->cols) {
         cout << "Nieodpowiednie argumenty";
         return (0.0);
@@ -192,13 +257,25 @@ complex<double> Matrix::determinant(int i,int j) {
     complex<double> tmp;
     tmp.real((-1)^(i+j));
     tmp.imag(0);
-    return tmp * this->array[0][j] * m.determinant(0,0);
+    return tmp * this->array[0][j] * m.Determinant(0,0);
 }
-Matrix Matrix::div(Matrix m2) {
+Matrix Matrix::Div(Matrix m2) {
     if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
         cout << "Nie mozna podzielic macierzy - niepasujace wymiary.";
         Matrix m(0,0);
         return m;
     }
 
+}
+Matrix Matrix::Pow(int p) {
+    if (rows!=cols) {
+        cout << "Nie mozna podniesc do potegi " << p ;
+        Matrix m;
+        return m;
+    }
+    Matrix output{*this};
+    for (int i=0;i<p;i++) {
+        output=output.Mul(*this);
+    }
+    return output;
 }
