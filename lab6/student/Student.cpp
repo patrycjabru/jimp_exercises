@@ -3,6 +3,8 @@
 //
 
 #include "Student.h"
+#include <istream>
+using namespace std;
 void CheckNextChar(char c, istream* is) {
     int next_char = is->peek();
     if (next_char != c) {
