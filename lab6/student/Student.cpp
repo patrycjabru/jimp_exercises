@@ -2,4 +2,4 @@
 // Created by bruzpatr on 04.04.17.
 //
 
-#include "student.h"
+#include "Student.h"
