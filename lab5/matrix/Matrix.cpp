@@ -269,7 +269,7 @@ Matrix Matrix::Div(Matrix m2) {
 }
 Matrix Matrix::Pow(int p) {
     if (rows!=cols) {
-        cout << "Nie mozna podniesc do potegi " << p ;
+        cout << "Nie mozna podniesc do potegi aaa" << p ;
         Matrix m;
         return m;
     }
