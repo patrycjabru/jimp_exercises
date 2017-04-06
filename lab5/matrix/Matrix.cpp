@@ -1,6 +1,7 @@
 //
 // Created by patrycja on 01.04.17.
 //
+//kom
 
 #include "Matrix.h"
 using namespace std;
