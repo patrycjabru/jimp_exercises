@@ -28,10 +28,10 @@ namespace algebra{
         Matrix Add(Matrix m2) const;
         Matrix Sub(Matrix m2);
         Matrix Mul(Matrix m2);
-        complex<double> Determinant(int i,int j);
-        Matrix Div(Matrix m2);
+//        complex<double> Determinant(int i,int j);
+//        Matrix Div(Matrix m2);
         pair<size_t, size_t > Size();
-        Matrix Pow(int p);
+        Matrix Pow(int p) const;
     };
 }
 #endif //JIMP_EXERCISES_MATRIX_H

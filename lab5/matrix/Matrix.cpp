@@ -11,7 +11,7 @@ std::string dtos(double x) {
     s << x;
     return s.str();
 }
-pair<size_t, size_t > Matrix::Size() {
+pair<size_t, size_t> Matrix::Size() {
     pair<size_t, size_t> size;
     size = make_pair(rows,cols);
     return size;
@@ -35,18 +35,25 @@ Matrix::Matrix(const std::initializer_list<std::vector<std::complex<double>>> &m
     }
 }
 Matrix::Matrix(int rows,int cols) {
-    complex<double>** arr = new complex<double>*[rows];
-    for(int i = 0; i < rows; i++)
-        arr[i] = new complex<double>[cols];
-    array=arr;
-    for(int i=0;i<rows;i++) {
-        for (int j = 0; j < cols; j++) {
-            array[i][j].real(0);
-            array[i][j].imag(0);
+    if (rows and cols) {
+        complex<double> **arr = new complex<double> *[rows];
+        for (int i = 0; i < rows; i++)
+            arr[i] = new complex<double>[cols];
+        array = arr;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                array[i][j].real(0);
+                array[i][j].imag(0);
+            }
         }
+        this->rows=rows;
+        this->cols=cols;
     }
-    this->rows=rows;
-    this->cols=cols;
+    else {
+        array = nullptr;
+        this->rows=0;
+        this->cols=0;
+    }
 }
 Matrix::Matrix(string input) {
     int rows=1, cols=0;
@@ -70,7 +77,6 @@ Matrix::Matrix(string input) {
     for(int i = 0; i < rows; i++)
         arr[i] = new complex<double>[cols];
     array=arr;
-//    cout << "rows "<<rows << "cols "<<cols<<"\n";
     int begin=0;
     int end=0;
     bool beginSet=false;
@@ -107,9 +113,7 @@ Matrix::Matrix(string input) {
                 else if (tmp[z]!='i')
                     sImaginary+=tmp[z];
             }
-//            cout<<sReal;
             real=stod(sReal);
-//            cout << sImaginary;
             if (separatorSpotted)
                 imaginary=stod(sImaginary);
             (array[r][c]).real(real);
@@ -123,13 +127,6 @@ Matrix::Matrix(string input) {
             endSet=false;
         }
     }
-//    for (int i=0;i<3;i++) {
-//        for (int j=0;j<3;j++)
-//            cout << "\n" <<array[j][i] << " ";
-//    cout << "\n";
-//    }
-
-
 }
 Matrix::Matrix(const Matrix &m) {
     rows=m.rows;
@@ -147,29 +144,17 @@ Matrix::Matrix(const Matrix &m) {
     }
 }
 Matrix::~Matrix() {
-    for(int i = 0; i < rows; i++)
-        delete[] array[i];
-    if (array)
+    if (rows and cols) {
+        for (int i = 0; i < rows; i++)
+            delete[] array[i];
         delete[] array;
+    }
     array= nullptr;
     rows=0;
     cols=0;
 }
 string Matrix::Print() const {
     string str="";
-//    str+="\n";
-//    for (int i=0;i<rows;i++) {
-//        for (int j=0;j<cols;j++) {
-//            str+=to_string(array[i][j].real());
-//            if (array[i][j].imag()!=0) {
-//                str+=" + "+to_string(array[i][j].imag())+"i";
-//                str+="\t\t";
-//            }
-//            else
-//                str+="\t\t\t\t\t";
-//        }
-//        str+="\n";
-//    }
     str+="[";
     for (int i=0;i<rows;i++) {
         for (int j = 0; j < cols; j++) {
@@ -186,11 +171,6 @@ string Matrix::Print() const {
     return str;
 }
 Matrix Matrix::Add(Matrix m2) const {
-//    if (this->cols!=m2.cols or this->rows!=m2.rows) {
-//        cout << "Nie mozna dodac macierzy - niepasujace wymiary.";
-//        Matrix m;
-//        return m;
-//    }
     Matrix output(rows,cols);
     for (int i=0;i<rows;i++) {
         for (int j=0;j<cols;j++) {
@@ -201,7 +181,6 @@ Matrix Matrix::Add(Matrix m2) const {
 }
 Matrix Matrix::Sub(Matrix m2) {
     if (this->cols!=m2.cols or this->rows!=m2.rows) {
-        cout << "Nie mozna odjac macierzy - niepasujace wymiary.";
         Matrix m(0,0);
         return m;
     }
@@ -214,8 +193,7 @@ Matrix Matrix::Sub(Matrix m2) {
     return output;
 }
 Matrix Matrix::Mul(Matrix m2) {
-    if (this->cols!=m2.rows) {
-        cout << "Nie mozna pomnozyc macierzy - niepasujace wymiary.";
+    if (this->cols!=m2.rows or this->rows==0 or m2.rows==0) {
         Matrix m;
         return m;
     }
@@ -229,52 +207,68 @@ Matrix Matrix::Mul(Matrix m2) {
     }
     return w;
 }
-complex<double> Matrix::Determinant(int i,int j) {
-    if (i>this->rows or j>this->cols) {
-        cout << "Nieodpowiednie argumenty";
-        return (0.0);
-    }
-    if (this->rows!=this->cols) {
-        cout << "Nie mozna policzyc wyznacznika - nieodpowiednie wymiary.";
-        return (0.0);
-    }
-    if (this->rows==1)
-        return this->array[0][0];
-    Matrix m(this->rows-1,this->cols-1);
-    int r=0,c=0;
-    for (int a=0;a<this->rows;a++) {
-        for (int b=0;b<this->cols;b++) {
-            if (a==i or b==j)
-                continue;
-            m.array[r][c]=this->array[a][b];
-            c++;
-            if (c==m.cols) {
-                c=0;
-                r++;
-            }
-        }
-    }
-    complex<double> tmp;
-    tmp.real((-1)^(i+j));
-    tmp.imag(0);
-    return tmp * this->array[0][j] * m.Determinant(0,0);
-}
-Matrix Matrix::Div(Matrix m2) {
-    if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
-        cout << "Nie mozna podzielic macierzy - niepasujace wymiary.";
-        Matrix m(0,0);
-        return m;
-    }
-
-}
-Matrix Matrix::Pow(int p) {
-    if (rows!=cols) {
-        cout << "Nie mozna podniesc do potegi aaa" << p ;
-        Matrix m;
-        return m;
+//complex<double> Matrix::Determinant(int i,int j) {
+//    if (i>this->rows or j>this->cols) {
+//        cout << "Nieodpowiednie argumenty";
+//        return (0.0);
+//    }
+//    if (this->rows!=this->cols) {
+//        cout << "Nie mozna policzyc wyznacznika - nieodpowiednie wymiary.";
+//        return (0.0);
+//    }
+//    if (this->rows==1)
+//        return this->array[0][0];
+//    Matrix m(this->rows-1,this->cols-1);
+//    int r=0,c=0;
+//    for (int a=0;a<this->rows;a++) {
+//        for (int b=0;b<this->cols;b++) {
+//            if (a==i or b==j)
+//                continue;
+//            m.array[r][c]=this->array[a][b];
+//            c++;
+//            if (c==m.cols) {
+//                c=0;
+//                r++;
+//            }
+//        }
+//    }
+//    complex<double> tmp;
+//    tmp.real((-1)^(i+j));
+//    tmp.imag(0);
+//    return tmp * this->array[0][j] * m.Determinant(0,0);
+//}
+//Matrix Matrix::Div(Matrix m2) {
+//    if (this->cols!=this->rows or m2.cols!=m2.rows or this->cols!=m2.cols) {
+//        cout << "Nie mozna podzielic macierzy - niepasujace wymiary.";
+//        Matrix m(0,0);
+//        return m;
+//    }
+//
+//}
+Matrix Matrix::Pow(int p) const {
+    if(!rows or !cols)
+        return Matrix();
+    if(rows!=cols)
+        return Matrix();
+    if (p==1)
+        return *this;
+    if(p==0)
+    {
+        Matrix output(rows,cols);
+        for(auto i=0;i<rows;i++)
+            for(auto j=0;j<cols;j++)
+                if(i==j) {
+                    output.array[i][j].real(1);
+                    output.array[i][j].imag(0);
+                }
+                else {
+                    output.array[i][j].real(0);
+                    output.array[i][j].imag(0);
+                }
+        return output;
     }
     Matrix output{*this};
-    for (int i=0;i<p;i++) {
+    for (int i=0;i<p-1;i++) {
         output=output.Mul(*this);
     }
     return output;
