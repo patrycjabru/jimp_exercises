@@ -18,6 +18,7 @@ namespace pool {
         TextPool(const std::initializer_list<std::string> list);
         TextPool(TextPool &&p);
         TextPool &operator=(TextPool &&p);
+        ~TextPool();
         std::experimental::string_view Intern(const std::string &str);
         size_t StoredStringCount() const;
     };
