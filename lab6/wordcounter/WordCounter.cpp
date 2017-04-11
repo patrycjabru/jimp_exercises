@@ -13,12 +13,28 @@ using namespace datastructures;
 Word::Word(std::string newWord) {
     word=newWord;
 }
+bool Word::operator<(Word w) const{
+    return this->word < w.word;
+}
+bool Word::operator==(Word w) const {
+    return this->word == w.word;
+}
 Counts::Counts(int newCounts) {
     counts=newCounts;
 }
 Counts & Counts::operator++() {
     ++counts;
     return *this;
+}
+bool Counts::operator==(Counts c) {
+    return this->counts == c.counts;
+
+}
+bool Counts::operator<(Counts c) {
+    return this->counts < c.counts;
+}
+bool Counts::operator>(Counts c){
+    return this->counts > c.counts;
 }
 
 WordCounter::WordCounter(std::string path) {
@@ -100,11 +116,18 @@ unsigned long WordCounter::TotalWords() {
     return total;
 }
 set<Word> WordCounter::Words() {
-//    std::list<std::pair<Word,Counts>> tmp;
+    std::list<std::pair<Word,Counts>> tmp;
+    set<Word> output;
+    for (int i=0;i<list.size();i++) {
+        output.emplace(list[i].first);
+    }
+    return output;
 //    for (int i=0;i<list.size();i++)
 //    {
-//        tmp.emplace(list[i]);
+//        tmp.insert(0,make_pair(list[i].first,list[i].second));
 //    }
+//    std::copy( list.begin(), list.end(), std::back_inserter( tmp ) );
+//    tmp.sort();
 }
 //int WordCounter::Counts(int x) {
 //    return x;
