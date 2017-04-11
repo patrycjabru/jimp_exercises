@@ -26,14 +26,14 @@ Counts & Counts::operator++() {
     ++counts;
     return *this;
 }
-bool Counts::operator==(Counts c) {
+bool Counts::operator==(Counts c) const{
     return this->counts == c.counts;
 
 }
-bool Counts::operator<(Counts c) {
+bool Counts::operator<(Counts c) const{
     return this->counts < c.counts;
 }
-bool Counts::operator>(Counts c){
+bool Counts::operator>(Counts c) const{
     return this->counts > c.counts;
 }
 
