@@ -9,6 +9,7 @@
 #include <map>
 #include <list>
 #include <set>
+#include <ostream>
 
 namespace datastructures {
     class Word {
@@ -25,6 +26,8 @@ namespace datastructures {
     public:
         int counts=0;
         Counts() = default;
+        Counts(const Counts &c) = default;
+        Counts(Counts &c) = default;
         Counts(int newCounts);
         Counts &operator++();
         bool operator==(Counts c) const;
@@ -41,8 +44,6 @@ namespace datastructures {
         unsigned long DistinctWords();
         unsigned long TotalWords();
         std::set<Word> Words();
-
     };
-
 }
 #endif //JIMP_EXERCISES_WORDCOUNTER_H
