@@ -5,7 +5,7 @@
 #include "WordCounter.h"
 #include <utility>
 #include <functional>
-
+#include <algorithm>
 #include <fstream>
 
 using namespace std;
@@ -13,6 +13,14 @@ using namespace datastructures;
 Word::Word(std::string newWord) {
     word=newWord;
 }
+bool Word::operator<(Word w) const{
+    return this->word < w.word;
+}
+bool Word::operator==(Word w) const {
+    return this->word == w.word;
+}
+
+
 Counts::Counts(int newCounts) {
     counts=newCounts;
 }
@@ -20,30 +28,31 @@ Counts & Counts::operator++() {
     ++counts;
     return *this;
 }
+bool Counts::operator==(Counts c) const{
+    return this->counts == c.counts;
+}
+bool Counts::operator<(Counts c) const{
+    return this->counts < c.counts;
+}
+bool Counts::operator>(Counts c) const{
+    return this->counts > c.counts;
+}
+
 
 WordCounter::WordCounter(std::string path) {
     ifstream file(path);
     std::string word;
-
     if(!file)
         cout << "Nie można otworzyć pliku!" << endl;
-
     while (file >> word)
     {
         bool found=false;
-
         for(int i=0;i<list.size();i++) {
             if (list[i].first.word==word) {
                 ++list[i].second;
                 found=true;
                 break;
             }
-//        for (auto i : list){
-//            if (i.first.word==word) {
-//                ++i.second;
-//                found=true;
-//                break;
-//            }
         }
         if (!found) {
             Word newWord(word);
@@ -66,13 +75,6 @@ WordCounter::WordCounter(const std::initializer_list<Word> l) {
                 break;
             }
         }
-//        for (auto i:list) {
-//            if (i.first.word==word.word) {
-//                found=true;
-//                ++i.second;
-//                break;
-//            }
-//        }
         if (!found) {
             Counts newCounts(1);
             pair<Word,Counts> a;
@@ -100,12 +102,9 @@ unsigned long WordCounter::TotalWords() {
     return total;
 }
 set<Word> WordCounter::Words() {
-//    std::list<std::pair<Word,Counts>> tmp;
-//    for (int i=0;i<list.size();i++)
-//    {
-//        tmp.emplace(list[i]);
-//    }
+    set<Word> output;
+    for (int i = 0; i < list.size(); i++) {
+        output.emplace(list[i].first);
+    }
+    return output;
 }
-//int WordCounter::Counts(int x) {
-//    return x;
-//}
