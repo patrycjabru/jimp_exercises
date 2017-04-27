@@ -33,7 +33,7 @@ int main() {
             v.emplace_back(c);
         }
     }
-    std::cout << std::endl;
+    std::cout << "\n";
     for (auto i:v)
         i->Draw();
     for (auto i:v)
