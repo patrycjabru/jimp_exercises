@@ -4,8 +4,8 @@
 
 #ifndef JIMP_EXERCISES_POINT_H
 #define JIMP_EXERCISES_POINT_H
-#include <iostream>
 
+#include <iostream>
 class Point {
 public:
     //Konstruktor bezparametrowy
@@ -30,10 +30,13 @@ public:
     //po jego zainicjalizowaniu
     void SetX(double x);
     void SetY(double y);
-private:
+
+protected:
     //w przeciwienstwie do pythona C++ wymaga jawnej deklaracji składowych pól klasy:
     double x_, y_;
 };
 
+std::istream& operator>>(std::istream &is, Point& point);
+std::ostream& operator<<(std::ostream &os, Point& point);
 
 #endif //JIMP_EXERCISES_POINT_H
