@@ -2,8 +2,9 @@
 // Created by patrycja on 03.05.17.
 //
 
-#include "Microdvd.h"
+#include "MovieSubtitles.h"
 #include <fstream>
+using namespace moviesubs;
 using namespace std;
 MicroDVD::MicroDVD(std::string in_path, std::string out_path) {
     ifstream in_file(in_path);
