@@ -6,7 +6,7 @@
 #include <fstream>
 using namespace moviesubs;
 using namespace std;
-MicroDVD::MicroDVD(std::string in_path, std::string out_path) {
+MicroDvdSubtitles::MicroDvdSubtitles(std::string in_path, std::string out_path) {
     ifstream in_file(in_path);
     char ch;
     if(!in_file)
@@ -36,7 +36,7 @@ MicroDVD::MicroDVD(std::string in_path, std::string out_path) {
         i++;
     }
 }
-void MicroDVD::delay(int delay, int fps) {
+void MicroDvdSubtitles::delay(int delay, int fps) {
     std::string sFrameNumber="";
     int iFrameNumber;
     bool isFrameNumber=false;
@@ -58,7 +58,7 @@ void MicroDVD::delay(int delay, int fps) {
                     throw InvalidFormat();
 //            cout << sFrameNumber << "\n";
             iFrameNumber=stoi(sFrameNumber);
-            iFrameNumber+=delay*fps;
+            iFrameNumber+=delay*fps/1000;
             sFrameNumber=to_string(iFrameNumber);
             sFrameNumber='{'+sFrameNumber; // tu tez
             for (auto c : sFrameNumber) {
