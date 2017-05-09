@@ -5,38 +5,33 @@
 #include "Student.h"
 #include <istream>
 using namespace std;
-void CheckNextChar(char c, istream* is) {
-    int next_char = is->peek();
-    if (next_char != c) {
-        throw runtime_error("invalid character");
+void Student::setAge(int age) {
+    if (age<10 or age>100)
+        throw invalidAge();
+    this->age=age;
+}
+void Student::setFirstName(string name) {
+    if (name.length()<2)
+        throw invalidName();
+    if (name[0]<65 or name[0]>90)
+        throw invalidName();
+    for (int i=1;i<name.length();i++) {
+        if (name[i]<97 or name[i]>122)
+            throw invalidName();
     }
-    is->ignore();
+    first_name=name;
 }
-
-//void IgnoreWhitespace(istream* is) {
-//    (*is) >> ws;
-//}
-
-double ReadNumber(istream* is) {
-    double d;
-    (*is) >> d;
-    return d;
+void Student::setProgram(string prog) {
+    if (prog!="informatyka" and prog!="ekonomia" and prog!="matematyka" and prog!="fizyka" and prog!="filozofia")
+        throw invalidProg();
+    program=prog;
 }
-//istream& operator>>(istream & input, StudentRepository& p){
-//    CheckNextChar("[Student {id: \"", &input);
-//    p.SetX(ReadNumber(&input));
-//    CheckNextChar(',', &input);
-//    IgnoreWhitespace(&input);
-//    p.SetY(ReadNumber(&input));
-//    CheckNextChar(')', &input);
-//    return input;      // Umożliwia cin >> a >> b >> c;
-//}
-friend istream& operator>>(istream & input, StudyYear& s){
-//    CheckNextChar('', &input);
-    s.SetYear(ReadNumber(&input));
-//    CheckNextChar(',', &input);
-//    IgnoreWhitespace(&input);
-//    p.SetY(ReadNumber(&input));
-//    CheckNextChar(')', &input);
-    return input;      // Umożliwia cin >> a >> b >> c;
+invalidAge::invalidAge(){
+    cout<<"Zly wiek";
+}
+invalidName::invalidName(){
+    cout<<"Zle imie";
+}
+invalidProg::invalidProg(){
+    cout<<"Zly kierunek";
 }
