@@ -28,7 +28,7 @@ namespace academia {
 
     class Serializable {
     public:
-        virtual void Serialize(Serializer *);
+        virtual void Serialize(Serializer *)=0;
 
     };
 
@@ -43,7 +43,7 @@ namespace academia {
         void Serialize(Serializer *serialize) override;
 
     private:
-        int it_;
+        int id_;
         std::string name_;
         Type type_;
     };
