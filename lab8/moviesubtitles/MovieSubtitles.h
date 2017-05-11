@@ -8,6 +8,8 @@
 #include <iostream>
 #include <sstream>
 #include <istream>
+#include <stdexcept>
+
 namespace moviesubs {
     class MicroDvdSubtitles {
     public:
@@ -48,6 +50,33 @@ namespace moviesubs {
     class TooLongOutput {
     public:
         TooLongOutput();
+    };
+
+    class MicroDvdError : public std::runtime_error
+    {
+    public:
+        int LineAt() const {
+            return line;
+        }
+        MicroDvdError(std::string str, int line) : line(line), std::runtime_error(str) {}
+
+    private:
+        int line;
+    };
+
+    class NegativeFrameAfterShift : public MicroDvdError {
+    public:
+        NegativeFrameAfterShift(std::string str, int line);
+    };
+
+    class SubtitleEndBeforeStart : public MicroDvdError {
+    public:
+        SubtitleEndBeforeStart(std::string str, int line);
+    };
+
+    class InvalidSubtitleLineFormat : public MicroDvdError {
+    public:
+        InvalidSubtitleLineFormat(std::string str, int line);
     };
 }
 #endif //JIMP_EXERCISES_MICRODVD_H
