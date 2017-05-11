@@ -7,10 +7,10 @@
 #define MAX 2048
 #include <iostream>
 namespace moviesubs {
-    class MicroDVD {
+    class MicroDvdSubtitles {
     public:
-        MicroDVD() = default;
-        MicroDVD(std::string in_path, std::string out_path);
+        MicroDvdSubtitles() = default;
+        MicroDvdSubtitles(std::string in_path, std::string out_path);
         void delay(int delay, int fps);
 //private:
         char _in[MAX];
