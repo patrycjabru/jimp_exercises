@@ -3,6 +3,7 @@
 //
 
 #include "MovieSubtitles.h"
+#include <memory>
 using namespace moviesubs;
 int main() {
 //    try {
@@ -17,5 +18,11 @@ int main() {
     for (int i=0;i<2048;i++) {
         std::cout << m._out[i];
     }
+    auto subs = std::make_unique<MicroDvdSubtitles>();
+    std::stringstream in {"{0}{250}TEXT\n{260}{300}NEWLINE\n"};
+    std::stringstream out;
+    subs->ShiftAllSubtitlesBy(300, 25, &in, &out);
+
+//    m.ShiftAllSubtitlesBy(12000,50,)
     return 0;
 }
