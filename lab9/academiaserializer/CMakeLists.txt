@@ -10,3 +10,4 @@ target_include_directories(libserialization PUBLIC .)
 add_executable(serialization ${SOURCE_FILES} main.cpp)
 
 target_link_libraries(serialization libserialization)
+
