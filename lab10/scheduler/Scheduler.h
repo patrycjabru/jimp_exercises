@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <set>
-
+//zmiana
 #ifndef JIMP_EXERCISES_SCHEDULER_H
 #define JIMP_EXERCISES_SCHEDULER_H
 
