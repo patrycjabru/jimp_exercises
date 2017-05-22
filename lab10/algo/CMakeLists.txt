@@ -10,4 +10,3 @@ target_include_directories(libalgo PUBLIC .)
 add_executable(algo ${SOURCE_FILES} main.cpp)
 
 target_link_libraries(algo libalgo)
-
