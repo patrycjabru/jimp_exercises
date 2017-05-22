@@ -10,7 +10,7 @@ set(REVERSE_STRING_SRC ReverseStringTest.cpp)
 set(PALINDROME_SRC PalindromeTest.cpp)
 set(MULTIPLICATION_TABLE_SRC MultiplicationTableTest.cpp)
 set(DOUBLE_BASE_PALINDROME_SRC DoubleBasePalindromeTest.cpp)
-set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC})
+set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC} ../../lab7/point3D/Point3D.cpp ../../lab7/point3D/Point3D.h ../../lab7/point3D/main.cpp ../../lab10/scheduler/Scheduler.cpp ../../lab10/scheduler/Scheduler.h ../../lab10/scheduler/main.cpp)
 
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 

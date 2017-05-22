@@ -4,5 +4,17 @@
 #include "Factorial.h"
 
 int factorial(int value) {
-  return 0;
+    int factorial=1;
+    if (value>0) {
+        for (value; value > 0; value--) {
+            factorial = factorial * value;
+        }
+    }
+    if (value<0){
+        for (value;value<0;value++)
+        {
+            factorial=factorial*value;
+        }
+    }
+    return factorial;
 }

@@ -1,7 +1,3 @@
-//
-// Created by patrycja on 03.05.17.
-//
-
 #include "MovieSubtitles.h"
 #include <fstream>
 #include <string>
@@ -39,6 +35,8 @@ MicroDvdSubtitles::MicroDvdSubtitles(std::string in_path, std::string out_path) 
     }
 }
 void MicroDvdSubtitles::delay(int delay, int fps) {
+    if (fps < 0)
+        throw invalid_argument("Invalid Framerate");
     std::string sFrameNumber="";
     int iFrameNumber;
     bool isFrameNumber=false;
@@ -61,6 +59,8 @@ void MicroDvdSubtitles::delay(int delay, int fps) {
 //            cout << sFrameNumber << "\n";
             iFrameNumber=stoi(sFrameNumber);
             iFrameNumber+=delay*fps/1000;
+            if(iFrameNumber<0)
+                throw NegativeFrameAfterShift();
             sFrameNumber=to_string(iFrameNumber);
             sFrameNumber='{'+sFrameNumber; // tu tez
             for (auto c : sFrameNumber) {
@@ -81,6 +81,8 @@ void MicroDvdSubtitles::delay(int delay, int fps) {
 }
 
 void MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *in, std::stringstream *out) {
+    if (fps < 0)
+        throw invalid_argument("Invalid Framerate");
     std::string inputString = in->str();
     std::string outputString="";
     std::string sFrameNumber="";
@@ -114,11 +116,12 @@ void MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstrea
 //                j++;
             outputString += sFrameNumber;
             sFrameNumber = "";
-            recalculate=false;
+            recalculate = false;
         }
         if (!recalculate and !isFrameNumber) {
             outputString += c;
         }
+
     }
     *out << outputString;
 }
@@ -141,3 +144,12 @@ InvalidFormat::InvalidFormat() {
 TooLongOutput::TooLongOutput() {
     cout << "Zbyt dlugie wyjscie";
 }
+
+NegativeFrameAfterShift::NegativeFrameAfterShift(std::string str, int line) : MicroDvdError(
+        "At line " + std::to_string(line) + ": " + str, line) {};
+
+SubtitleEndBeforeStart::SubtitleEndBeforeStart(std::string str, int line) : MicroDvdError(
+        "At line " + std::to_string(line) + ": " + str, line) {};
+
+InvalidSubtitleLineFormat::InvalidSubtitleLineFormat(std::string str, int line) : MicroDvdError(
+        "At line " + std::to_string(line) + ": " + str, line) {};

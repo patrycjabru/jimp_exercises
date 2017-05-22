@@ -1,7 +1,6 @@
 project(lab8)
 
-<<<<<<< HEAD
 add_subdirectory_if_exists(ball)
-=======
 add_subdirectory_if_exists(pesel)
->>>>>>> origin/master
+add_subdirectory_if_exists(microdvd)
+add_subdirectory_if_exists(moviesubtitles)
