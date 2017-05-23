@@ -40,11 +40,28 @@ namespace academia {
     }
 
     void Schedule::InsertScheduleItem(const SchedulingItem &item) {
-
+        item_.push_back(item);
     }
 
     SchedulingItem Schedule::operator[](int it) const {
         return item_[it];
+    }
+
+    size_t Schedule::Size() const {
+        return item_.size();
+    }
+
+    std::vector<int> Schedule::AvailableTimeSlots(int n_time_slots) const {
+        std::vector<int>tmp;
+        for(int i=1;i<n_time_slots+1;i++)
+            tmp.push_back(i);
+        for(auto& n :item_)
+        {
+            auto notAvailable=std::find(tmp.begin(),tmp.end(),n.TimeSlot());
+            if(notAvailable!=tmp.end())
+                tmp.erase(notAvailable);
+        }
+        return tmp;
     }
 
     SchedulingItem::SchedulingItem(int course_id, int teacher_id, int room_id, int time_slot, int year) {
