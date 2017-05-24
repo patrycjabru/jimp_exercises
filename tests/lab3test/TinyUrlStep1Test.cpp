@@ -35,4 +35,4 @@ std::vector<TestParam> tinyUrlTestData
 
 INSTANTIATE_TEST_CASE_P(TinyUrlStep1Fixture,
                         TinyUrlStep1,
-                        ::testing::ValuesIn(tinyUrlTestData));5
+                        ::testing::ValuesIn(tinyUrlTestData));
