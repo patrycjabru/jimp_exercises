@@ -36,7 +36,7 @@ public:
         MyTree::Node* tmp=root_;
         if (tmp->value_==value)
             return root_;
-        while (tmp!= nullptr and tmp!=value) {
+        while (tmp!= nullptr and tmp->value_!=value) {
             if (value < tmp->value_)
                 tmp = tmp->left;
             else
@@ -67,9 +67,9 @@ public:
                 }
             }
             if (last==0)
-                tmp->parent->left=&n;
+                tmp=&n;
             else
-                tmp->parent->right=&n;
+                tmp=&n;
             n.parent=tmp->parent;
             size_++;
         }
