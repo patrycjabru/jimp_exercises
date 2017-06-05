@@ -18,7 +18,7 @@ namespace academia {
     bool Teacher::operator!=(const Teacher &t) const {
         return !(name_ == t.name_ and department_ == t.department_ and id_ == t.id_);
     }
-    int TeacherHash::operator()(const Teacher &teacher) const {
-        return std::hash<int>{}(teacher.Id())^std::hash<std::string>{}(teacher.Name())^std::hash<std::string>{}(teacher.Department());
+    int TeacherHash::operator()(const Teacher &t) const {
+        return std::hash<int>{}(t.Id())^std::hash<std::string>{}(t.Name())^std::hash<std::string>{}(t.Department());
     }
 };

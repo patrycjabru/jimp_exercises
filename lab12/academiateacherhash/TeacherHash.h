@@ -32,7 +32,7 @@ namespace academia
     };
     class TeacherHash {
     public:
-        int operator()(const Teacher &teacher) const;
+        int operator()(const Teacher &t) const;
     };
 }
 
