@@ -11,7 +11,9 @@ namespace academia
 
     class TeacherId {
     public:
+        TeacherId() = default;
         TeacherId(const int &value);
+        ~TeacherId()=default;
         operator int() const{ return id_; }
     private:
         int id_;
@@ -19,7 +21,9 @@ namespace academia
     class Teacher
     {
     public:
+        Teacher() = default;
         Teacher(const TeacherId &id, std::string name, std:: string department);
+        ~Teacher()=default;
         TeacherId Id() const {return id_; }
         std::string Name() const {return name_; }
         std::string Department() const {return department_; }
@@ -32,6 +36,8 @@ namespace academia
     };
     class TeacherHash {
     public:
+        TeacherHash()= default;
+        ~TeacherHash()= default;
         int operator()(const Teacher &t) const;
     };
 }
