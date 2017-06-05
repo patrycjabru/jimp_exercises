@@ -12,7 +12,7 @@ namespace academia
     class TeacherId {
     public:
         TeacherId(const int &value);
-        operator int() const{ return this->id_; }
+        operator int() const{ return id_; }
     private:
         int id_;
     };
