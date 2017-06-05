@@ -37,10 +37,20 @@ namespace tree {
 
         Tree() = default;
         Tree(T value) {
-            Node n;
-            n.value_=value;
-            root_=&n;
-            size_++;
+            Node* n = new Node;
+            n->value_=value;
+            root_=n;
+            size_=1;
+        }
+//        ~Tree() {
+//            Node* tmp=root_;
+//            Node* tmp_left=root_->left;
+//            Node* tmp_right=root_->right;
+//            if (root_!= nullptr)
+//                delete(root_);
+//        }
+        void deleteNodes(Node* n) {
+            ;
         }
         T Value() {
             return root_->value_;
@@ -68,34 +78,33 @@ namespace tree {
 
 
         void Insert(T value) {
-            Node n;
-            n.value_ = value;
-            if (size_ == 0) {
-                root_ = &n;
-                size_++;
-            }
+            Node* n= new Node;
+            n->value_=value;
+            if(size_==0)
+                root_=n;
             else {
-                Tree::Node *tmp = root_;
-                int last = 0;
-                while (tmp != nullptr) {
-                    if (n < *tmp) {
-                        tmp = tmp->left;
-                        last = 0;
-                    } else {
-                        tmp = tmp->right;
-                        last = 1;
-                    }
+                bool isRight= false;
+                Node *tmp = root_;
+                Node *prev = nullptr;
+                if (*n < *tmp) {
+                    prev = tmp;
+                    tmp = tmp->right;
+                    isRight = true;
                 }
-                if (last == 0)
-                    tmp = &n;
+                else {
+                    prev = tmp;
+                    tmp = tmp->left;
+                    isRight=false;
+                }
+                if(isRight)
+                    prev->right=n;
                 else
-                    tmp = &n;
-                n.parent = tmp->parent;
-                size_++;
+                    prev->left=n;
+                n->parent=prev;
             }
+            size_++;
+
         }
-
-
     };
 }
 #endif //JIMP_EXERCISES_TREE_H
