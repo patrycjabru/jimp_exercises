@@ -2,7 +2,7 @@
 // Created by mwypych on 16.02.17.
 //
 #include <gtest/gtest.h>
-#include <Doublebasepalindromes.h>
+#include <DoubleBasePalindromes.h>
 #include <vector>
 
 using TestParam = std::pair<int, uint64_t>;
