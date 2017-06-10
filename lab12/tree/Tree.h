@@ -8,12 +8,38 @@
 #include <initializer_list>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <ostream>
+#include <sstream>
 namespace tree {
     template<class T>
     class Tree {
     public:
         class Node {
         public:
+            Node()=default;
+            Node(const Node &node) {
+                Node* n = new Node;
+                n->value_=node.value_;
+                n->right=node.right;
+                n->left=node.left;
+            }
+            Node(Node &&node) {
+                Node* n = new Node;
+                n->value_=node.value_;
+                n->right=node.right;
+                n->left=node.left;
+            }
+            Node &operator=(const Node &node) {
+                value_=node.value_;
+                right=node.right;
+                left=node.left;
+            }
+            Node &operator=(Node &&node) {
+                value_=node.value_;
+                right=node.right;
+                left=node.left;
+            }
             Node *left = nullptr;
             Node *right = nullptr;
             Node *parent = nullptr;
@@ -30,9 +56,12 @@ namespace tree {
             bool operator<(Node n) {
                 return (value_ < n.value_);
             }
-
+            std::ostream& operator<< (std::ostream& os, Node& n) {
+                os << std::
+                stringstream();
+            }
         };
-        Node *root_;
+        Node *root_= nullptr;
         int size_ = 0;
 
         Tree() = default;
@@ -42,6 +71,7 @@ namespace tree {
             root_=n;
             size_=1;
         }
+
 //        ~Tree() {
 //            Node* tmp=root_;
 //            Node* tmp_left=root_->left;
@@ -49,9 +79,9 @@ namespace tree {
 //            if (root_!= nullptr)
 //                delete(root_);
 //        }
-        void deleteNodes(Node* n) {
-            ;
-        }
+//        void deleteNodes(Node* n) {
+//            ;
+//        }
         T Value() {
             return root_->value_;
         }
@@ -75,8 +105,6 @@ namespace tree {
             }
             return tmp;
         }
-
-
         void Insert(T value) {
             Node* n= new Node;
             n->value_=value;
@@ -86,15 +114,16 @@ namespace tree {
                 bool isRight= false;
                 Node *tmp = root_;
                 Node *prev = nullptr;
-                if (*n < *tmp) {
-                    prev = tmp;
-                    tmp = tmp->right;
-                    isRight = true;
-                }
-                else {
-                    prev = tmp;
-                    tmp = tmp->left;
-                    isRight=false;
+                while(tmp!= nullptr) {
+                    if (*n < *tmp) {
+                        prev = tmp;
+                        tmp = tmp->right;
+                        isRight = true;
+                    } else {
+                        prev = tmp;
+                        tmp = tmp->left;
+                        isRight = false;
+                    }
                 }
                 if(isRight)
                     prev->right=n;
@@ -103,8 +132,12 @@ namespace tree {
                 n->parent=prev;
             }
             size_++;
-
         }
     };
+    void InOrder(Tree::Node *root) {
+        if (root->left!= nullptr)
+            std::cout << InOrder(root->left);
+
+    }
 }
 #endif //JIMP_EXERCISES_TREE_H
