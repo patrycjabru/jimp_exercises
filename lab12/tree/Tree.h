@@ -117,7 +117,7 @@ namespace tree {
                 Node *tmp = root_;
                 Node *prev = nullptr;
                 while(tmp!= nullptr) {
-                    if (*n < *tmp) {
+                    if (*n > *tmp) {
                         prev = tmp;
                         tmp = tmp->right;
                         isRight = true;
@@ -142,12 +142,18 @@ namespace tree {
         return 0;
     }
     template<class T>
-    int InOrder(typename Tree<T>::Node *root) {
-//        if (root->left!= nullptr)
-//            InOrder(root->left);
-//        Print(*root);
-//        if (root->right!= nullptr)
-//            InOrder(root->right);
+    int InOrder(typename ::tree::Tree<T> tree) {
+        if (tree.root_->left!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->left;
+            InOrder(tmp);
+        }
+        std::cout << tree.root_->value_ << std::endl;
+        if (tree.root_->right!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->right;
+            InOrder(tmp);
+        }
         return 0;
     }
 }
