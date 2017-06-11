@@ -56,10 +56,10 @@ namespace tree {
             bool operator<(Node n) {
                 return (value_ < n.value_);
             }
-            std::ostream& operator<< (std::ostream& os, Node& n) {
-                os << std::
-                stringstream();
-            }
+//            std::ostream& operator<< (std::ostream& os, Node& n) {
+//                os << std::
+//                stringstream();
+//            }
         };
         Node *root_= nullptr;
         int size_ = 0;
@@ -134,10 +134,14 @@ namespace tree {
             size_++;
         }
     };
-    void InOrder(Tree::Node *root) {
+    int Print(Tree::Node node) {
+        std::cout << node.value_;
+        return 0;
+    }
+    int InOrder(Tree::Node *root) {
         if (root->left!= nullptr)
-            std::cout << InOrder(root->left);
-
+            Print(*root);
+        return 0;
     }
 }
 #endif //JIMP_EXERCISES_TREE_H
