@@ -12,7 +12,11 @@ int main() {
     tree.Insert(34);
     tree.Insert(12);
     if (tree.Search(10)!= nullptr)
-        std::cout<< "Znalazlo\n";
+        std::cout<< "Znalazlo 10\n";
+    if (tree.Search(40)!= nullptr)
+        std::cout<< "Znalazlo 40\n";
+    else
+        std::cout<< "Nie znalazlo 40\n";
     std::cout << "InOrder:" << std::endl;
     tree::InOrder(tree);
     std::cout << "PreOrder:" << std::endl;
