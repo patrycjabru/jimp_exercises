@@ -16,29 +16,34 @@ namespace tree {
     public:
         class Node {
         public:
-            Node()=default;
+            Node() = default;
+
             Node(const Node &node) {
-                Node* n = new Node;
-                n->value_=node.value_;
-                n->right=node.right;
-                n->left=node.left;
+                Node *n = new Node;
+                n->value_ = node.value_;
+                n->right = node.right;
+                n->left = node.left;
             }
+
             Node(Node &&node) {
-                Node* n = new Node;
-                n->value_=node.value_;
-                n->right=node.right;
-                n->left=node.left;
+                Node *n = new Node;
+                n->value_ = node.value_;
+                n->right = node.right;
+                n->left = node.left;
             }
+
             Node &operator=(const Node &node) {
-                value_=node.value_;
-                right=node.right;
-                left=node.left;
+                value_ = node.value_;
+                right = node.right;
+                left = node.left;
             }
+
             Node &operator=(Node &&node) {
-                value_=node.value_;
-                right=node.right;
-                left=node.left;
+                value_ = node.value_;
+                right = node.right;
+                left = node.left;
             }
+
             Node *left = nullptr;
             Node *right = nullptr;
             Node *parent = nullptr;
@@ -60,15 +65,17 @@ namespace tree {
 //                stringstream();
 //            }
         };
-        Node *root_= nullptr;
+
+        Node *root_ = nullptr;
         int size_ = 0;
 
         Tree() = default;
+
         Tree(T value) {
-            Node* n = new Node;
-            n->value_=value;
-            root_=n;
-            size_=1;
+            Node *n = new Node;
+            n->value_ = value;
+            root_ = n;
+            size_ = 1;
         }
 
 //        ~Tree() {
@@ -84,14 +91,17 @@ namespace tree {
         T Value() {
             return root_->value_;
         }
+
         int Size() {
             return size_;
         }
+
         int Depth() {
-            return log2(size_)+1;
+            return log2(size_) + 1;
         }
+
         Node *Search(T value) {
-            if (size_==0)
+            if (size_ == 0)
                 return nullptr;
             Tree::Node *tmp = root_;
             if (tmp->value_ == value)
@@ -104,17 +114,18 @@ namespace tree {
             }
             return tmp;
         }
+
         void Insert(T value) {
-            Node* n= new Node;
-            n->value_=value;
-            if(size_==0)
-                root_=n;
+            Node *n = new Node;
+            n->value_ = value;
+            if (size_ == 0)
+                root_ = n;
             else {
-                bool isRight= false;
+                bool isRight = false;
                 Node *tmp = root_;
                 Node *prev = nullptr;
-                while(tmp!= nullptr) {
-                    if (*n > *tmp) {
+                while (tmp != nullptr) {
+                    if (*n < *tmp) {
                         prev = tmp;
                         tmp = tmp->right;
                         isRight = true;
@@ -124,20 +135,15 @@ namespace tree {
                         isRight = false;
                     }
                 }
-                if(isRight)
-                    prev->right=n;
+                if (isRight)
+                    prev->right = n;
                 else
-                    prev->left=n;
-                n->parent=prev;
+                    prev->left = n;
+                n->parent = prev;
             }
             size_++;
         }
     };
-    template<class T>
-    int Print(typename Tree<T>::Node node) {
-        std::cout << node.value_;
-        return 0;
-    }
     template<class T>
     int InOrder(typename ::tree::Tree<T> tree) {
         if (tree.root_->left!= nullptr) {
@@ -151,6 +157,36 @@ namespace tree {
             tmp.root_=tree.root_->right;
             InOrder(tmp);
         }
+        return 0;
+    }
+    template<class T>
+    int PreOrder(typename ::tree::Tree<T> tree) {
+        std::cout << tree.root_->value_ << std::endl;
+        if (tree.root_->left!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->left;
+            PreOrder(tmp);
+        }
+        if (tree.root_->right!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->right;
+            PreOrder(tmp);
+        }
+        return 0;
+    }
+    template<class T>
+    int PostOrder(typename ::tree::Tree<T> tree) {
+        if (tree.root_->left!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->left;
+            PostOrder(tmp);
+        }
+        if (tree.root_->right!= nullptr) {
+            Tree<T> tmp;
+            tmp.root_=tree.root_->right;
+            PostOrder(tmp);
+        }
+        std::cout << tree.root_->value_ << std::endl;
         return 0;
     }
 }
