@@ -12,8 +12,12 @@ int main() {
     tree.Insert(34);
     tree.Insert(12);
     if (tree.Search(10)!= nullptr)
-        std::cout<< "Znalazlo";
+        std::cout<< "Znalazlo\n";
+    std::cout << "InOrder:" << std::endl;
     tree::InOrder(tree);
-
+    std::cout << "PreOrder:" << std::endl;
+    tree::PreOrder(tree);
+    std::cout << "PostOrder:" << std::endl;
+    tree::PostOrder(tree);
     return 0;
 }
