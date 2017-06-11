@@ -13,6 +13,7 @@ int main() {
     tree.Insert(12);
     if (tree.Search(10)!= nullptr)
         std::cout<< "Znalazlo";
-    tree::InOrder(tree.root_);
+    tree::InOrder(tree);
+
     return 0;
 }
