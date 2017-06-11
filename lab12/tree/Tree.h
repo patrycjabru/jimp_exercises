@@ -136,13 +136,18 @@ namespace tree {
             size_++;
         }
     };
-    int Print(Tree::Node node) {
+    template<class T>
+    int Print(typename Tree<T>::Node node) {
         std::cout << node.value_;
         return 0;
     }
-    int InOrder(Tree::Node *root) {
-        if (root->left!= nullptr)
-            Print(*root);
+    template<class T>
+    int InOrder(typename Tree<T>::Node *root) {
+//        if (root->left!= nullptr)
+//            InOrder(root->left);
+//        Print(*root);
+//        if (root->right!= nullptr)
+//            InOrder(root->right);
         return 0;
     }
 }
