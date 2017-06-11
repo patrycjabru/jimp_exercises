@@ -17,7 +17,6 @@ namespace tree {
         class Node {
         public:
             Node() = default;
-
             Node(const Node &node) {
                 Node *n = new Node;
                 n->value_ = node.value_;
@@ -43,6 +42,9 @@ namespace tree {
                 right = node.right;
                 left = node.left;
             }
+            ~Node() {
+                delete this;
+            }
 
             Node *left = nullptr;
             Node *right = nullptr;
@@ -58,12 +60,8 @@ namespace tree {
             }
 
             bool operator<(Node n) {
-                return (value_ < n.value_);
+                return (this->value_ < n.value_);
             }
-//            std::ostream& operator<< (std::ostream& os, Node& n) {
-//                os << std::
-//                stringstream();
-//            }
         };
 
         Node *root_ = nullptr;
@@ -78,16 +76,7 @@ namespace tree {
             size_ = 1;
         }
 
-//        ~Tree() {
-//            Node* tmp=root_;
-//            Node* tmp_left=root_->left;
-//            Node* tmp_right=root_->right;
-//            if (root_!= nullptr)
-//                delete(root_);
-//        }
-//        void deleteNodes(Node* n) {
-//            ;
-//        }
+        ~Tree() = default;
         T Value() {
             return root_->value_;
         }
@@ -97,7 +86,7 @@ namespace tree {
         }
 
         int Depth() {
-            return log2(size_) + 1;
+            return floor(log2(size_)) + 1;
         }
 
         Node *Search(T value) {
@@ -125,7 +114,7 @@ namespace tree {
                 Node *tmp = root_;
                 Node *prev = nullptr;
                 while (tmp != nullptr) {
-                    if (*n < *tmp) {
+                    if (n->value_ > tmp->value_) {
                         prev = tmp;
                         tmp = tmp->right;
                         isRight = true;
