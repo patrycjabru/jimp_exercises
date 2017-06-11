@@ -11,6 +11,8 @@
 #include <iostream>
 #include <ostream>
 #include <sstream>
+
+
 namespace tree {
     template<class T>
     class Tree {
